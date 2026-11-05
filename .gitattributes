@@ -1,0 +1,2 @@
+# Serve the build's bytes unchanged: no line-ending conversion.
+* -text

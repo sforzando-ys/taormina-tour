@@ -1,0 +1,51 @@
+{
+    "project": {
+        "name": "Teatro Antico di Taormina - simulated acoustics",
+        "title": "Taormina",
+        "subtitle": "A: intact Roman hypothesis (simulated)",
+        "truthLine": "A, intact Roman hypothesis. Simulated sound from an uncalibrated computer model, not a recording; the view is a render of a stylised model, not a photograph.",
+        "aboutUrl": "../about.html",
+        "switch": {
+            "label": "Switch to B: ruin",
+            "title": "Hear the same seat in B: the present ruin (simulated)",
+            "url": "../b/"
+        }
+    },
+    "map": {
+        "imagePath": "assets/map.svg",
+        "bounds": {
+            "xmin": -55,
+            "xmax": 55,
+            "ymin": -56,
+            "ymax": 25
+        }
+    },
+    "data": {
+        "csvPath": "DataSet.csv",
+        "imagesPath": "assets/images/",
+        "irsPath": "assets/irs/",
+        "audioPath": "assets/audio/"
+    },
+    "audio": {
+        "ambisonicOrder": 1,
+        "defaultVolume": 100,
+        "irSampleRate": 44100,
+        "dryGain": 1.033353,
+        "samples": [
+            {
+                "name": "Soprano - O mio babbino caro (Puccini)",
+                "filename": "soprano-o-mio-babbino-caro-excerpt.wav"
+            },
+            {
+                "name": "Bacchae - Ancient Greek reading",
+                "filename": "bacchae-1-63-excerpt.wav",
+                "gainDb": -9.44
+            },
+            {
+                "name": "Gladiator fight - sound effect",
+                "filename": "gladiator-fight-excerpt.wav",
+                "gainDb": -2.13
+            }
+        ]
+    }
+}

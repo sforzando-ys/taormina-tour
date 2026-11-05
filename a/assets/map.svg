@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-55 -25 110 81" width="1100" height="810" preserveAspectRatio="none" role="img">
+<title>Plan of the modelled theatre, state A, intact Roman hypothesis</title>
+<desc>Outlines of the project's stylised model in metres (seating bands, stairs, floor, inner wall foot, stage). Not a survey drawing. Stage at the top; the arrow marks true north.</desc>
+<style>.band{fill:#e8e2d6;fill-opacity:.13;stroke:#e8e2d6;stroke-opacity:.55;stroke-width:.22}
+.floor{fill:#e8e2d6;fill-opacity:.07;stroke:#e8e2d6;stroke-opacity:.6;stroke-width:.25}
+.stair{fill:none;stroke:#cfc8bb;stroke-opacity:.7;stroke-width:.3;stroke-linecap:round}
+.wall{fill:none;stroke:#f2ede4;stroke-opacity:.85;stroke-width:.55}
+.stage{fill:#e8e2d6;fill-opacity:.16;stroke:#f2ede4;stroke-opacity:.9;stroke-width:.35}
+.frons{fill:none;stroke:#f2ede4;stroke-width:.9}
+.lbl{fill:#f2ede4;font-family:Inter,Arial,Helvetica,sans-serif;font-size:3.4px;letter-spacing:.06px}
+.north{fill:#f2ede4;stroke:none}
+.north-shaft{fill:none;stroke:#f2ede4;stroke-width:.45;stroke-linecap:round}
+.north-ring{fill:none;stroke:#f2ede4;stroke-opacity:.45;stroke-width:.25}</style>
+<g id="bands">
+<path class="band" data-band="podium_walk" d="M-14.462,-0.467L-16.761,-0.541A16.77 16.77 0 1 0 16.761,-0.541L14.462,-0.467A14.47 14.47 0 1 1 -14.462,-0.467Z"/>
+<path class="band" data-band="ima" d="M-16.761,-0.541L-29.535,-0.954A29.55 29.55 0 1 0 29.535,-0.954L16.761,-0.541A16.77 16.77 0 1 1 -16.761,-0.541Z"/>
+<path class="band" data-band="praecinctio_1" d="M-29.535,-0.954L-31.833,-1.028A31.85 31.85 0 1 0 31.833,-1.028L29.535,-0.954A29.55 29.55 0 1 1 -29.535,-0.954Z"/>
+<path class="band" data-band="media" d="M-31.833,-1.028L-46.026,-1.487A46.05 46.05 0 1 0 46.026,-1.487L31.833,-1.028A31.85 31.85 0 1 1 -31.833,-1.028Z"/>
+<path class="band" data-band="praecinctio_2" d="M-46.026,-1.487L-48.325,-1.561A48.35 48.35 0 1 0 48.325,-1.561L46.026,-1.487A46.05 46.05 0 1 1 -46.026,-1.487Z"/>
+<path class="band" data-band="summa" d="M-48.325,-1.561L-51.873,-1.675A51.9 51.9 0 1 0 51.873,-1.675L48.325,-1.561A48.35 48.35 0 1 1 -48.325,-1.561Z"/>
+</g>
+<path id="floor" class="floor" d="M14.47,0A14.47 14.47 0 0 0 -7.235,-12.531A14.47 14.47 0 0 0 -7.235,12.531A14.47 14.47 0 0 0 14.47,0Z"/>
+<g id="stairs">
+<path class="stair" d="M-15.898,5.338L-28.013,9.406"/>
+<path class="stair" d="M-30.193,10.138L-43.655,14.658"/>
+<path class="stair" d="M-45.835,15.391L-49.2,16.521"/>
+<path class="stair" d="M-13.038,10.547L-22.974,18.585"/>
+<path class="stair" d="M-24.762,20.032L-35.802,28.963"/>
+<path class="stair" d="M-37.59,30.409L-40.35,32.642"/>
+<path class="stair" d="M-8.541,14.432L-15.05,25.431"/>
+<path class="stair" d="M-16.221,27.41L-23.453,39.63"/>
+<path class="stair" d="M-24.624,41.61L-26.432,44.665"/>
+<path class="stair" d="M-2.971,16.505L-5.236,29.082"/>
+<path class="stair" d="M-5.643,31.346L-8.159,45.321"/>
+<path class="stair" d="M-8.567,47.585L-9.196,51.079"/>
+<path class="stair" d="M2.971,16.505L5.236,29.082"/>
+<path class="stair" d="M5.643,31.346L8.159,45.321"/>
+<path class="stair" d="M8.567,47.585L9.196,51.079"/>
+<path class="stair" d="M8.541,14.432L15.05,25.431"/>
+<path class="stair" d="M16.221,27.41L23.453,39.63"/>
+<path class="stair" d="M24.624,41.61L26.432,44.665"/>
+<path class="stair" d="M13.038,10.547L22.974,18.585"/>
+<path class="stair" d="M24.762,20.032L35.802,28.963"/>
+<path class="stair" d="M37.59,30.409L40.35,32.642"/>
+<path class="stair" d="M15.898,5.338L28.013,9.406"/>
+<path class="stair" d="M30.193,10.138L43.655,14.658"/>
+<path class="stair" d="M45.835,15.391L49.2,16.521"/>
+</g>
+<path id="inner-wall-foot" class="wall" d="M-51.873,-1.675A51.9 51.9 0 1 0 51.873,-1.675"/>
+<path id="stage" class="stage" d="M-20.95,-14.47H20.95V-23.97H-20.95Z"/>
+<path id="frons" class="frons" d="M-20.95 -23.97H20.95"/>
+<text class="lbl" x="0" y="-18.02" text-anchor="middle">stage</text>
+<g id="north-arrow">
+<circle class="north-ring" cx="45.5" cy="-14.5" r="5.5"/>
+<path class="north-shaft" d="M42.33 -17.256L46.979 -13.214"/>
+<path class="north" d="M48.67 -11.744L45.929 -12.007L48.029 -14.422Z"/>
+<text class="lbl" x="51.236" y="-8.314" text-anchor="middle">N</text>
+</g>
+</svg>

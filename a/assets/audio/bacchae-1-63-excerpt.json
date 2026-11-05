@@ -1,0 +1,259 @@
+{
+ "schema": "taormina.atlas_tour.owner_sample/1",
+ "file": "bacchae-1-63-excerpt.wav",
+ "bytes": 3454490,
+ "sha256": "6095f424cc41f880fe65a9971a36b874ff684e7deb9f39ee6a452cd94316273c",
+ "format": {
+  "format_tag": "0x0001",
+  "format_name": "WAVE_FORMAT_PCM",
+  "channels": 1,
+  "sample_rate_hz": 48000,
+  "bits_per_sample": 24,
+  "data_bytes": 3454446,
+  "container": "RIFF/WAVE",
+  "subtype": "PCM_24",
+  "frames": 1151482,
+  "duration_s": 23.989
+ },
+ "display_name": "Bacchae - Ancient Greek reading",
+ "kind": "STUDIO READING (spoken Ancient Greek text, from YouTube). Not anechoic: the recording room's own acoustics and any production processing are in the file and are heard on top of the simulated response.",
+ "content": "Euripides, Bacchae 1-63 (narrated in Ancient Attic Greek)",
+ "truth_note": "The Bacchae is a studio reading with its own acoustics; the gladiator clip is a produced foley mix with its own ambience, played as one emitter at the stage source. Neither is anechoic; both are played through the simulated response as they are; no historical-authenticity claim.",
+ "about_text": "the first 24 seconds of a reading of lines 1-63 of Euripides' Bacchae, narrated in Ancient Attic Greek by Ioannis Stratakis (Podium-Arts, YouTube). It is a studio reading with its own room acoustics, not an anechoic recording; it is played through the simulated response as it is, so the recording room is heard as well. It makes no claim about how an ancient performance sounded.",
+ "source": {
+  "platform": "YouTube",
+  "title": "Euripides, Bacchae 1-63 (narrated in Ancient Attic Greek)",
+  "channel": "Podium-Arts",
+  "narrator": "Ioannis Stratakis",
+  "author_of_text": "Euripides",
+  "url": "https://youtu.be/m0EkSYMQp2U",
+  "stated_duration": "4:40",
+  "description_quote": "A free to download audiobook / videobook fragment",
+  "downloaded_by": "Yishan Shen (owner), himself",
+  "downloaded_on": "2026-10-14",
+  "download_note": "the project made no download; the owner supplied the file",
+  "source_file_name": "Bacchae.mp4",
+  "source_file_sha256": "b0300829bf871ee397fca991855cc0c4e0e810240967df19dc4f6ee51bc83327",
+  "source_file_bytes": 4536636,
+  "ffprobe": {
+   "container": {
+    "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+    "format_long_name": "QuickTime / MOV",
+    "duration_s": "280.264853",
+    "size_bytes": "4536636",
+    "bit_rate": "129495",
+    "nb_streams": 1,
+    "tags": {
+     "major_brand": "dash",
+     "minor_version": "0",
+     "compatible_brands": "iso6mp41",
+     "creation_time": "2026-06-01T17:29:14.000000Z",
+     "encoder": "Google"
+    }
+   },
+   "streams": [
+    {
+     "index": 0,
+     "codec_type": "audio",
+     "codec_name": "aac",
+     "codec_long_name": "AAC (Advanced Audio Coding)",
+     "profile": "LC",
+     "sample_fmt": "fltp",
+     "sample_rate": "44100",
+     "channels": 2,
+     "channel_layout": "stereo",
+     "time_base": "1/44100",
+     "duration_ts": 12359680,
+     "duration": "280.264853",
+     "bit_rate": "128166",
+     "tags": {
+      "creation_time": "2026-06-01T17:29:14.000000Z",
+      "language": "und",
+      "handler_name": "ISO Media file produced by Google Inc."
+     }
+    }
+   ],
+   "audio_only": true
+  },
+  "measured_duration_s": 280.264853,
+  "facts_provenance": "verbatim from the lead's task of 2026-10-14 (the owner's facts as passed on by the lead)"
+ },
+ "rights": {
+  "basis": "owner decision",
+  "decision": "Owner (Yishan Shen) directed on 2026-10-14 that these recordings be used as the tour's samples; the lead did not verify the source terms (Podium-Arts terms unread; Sound Effect Database states a paid single licence). This is the owner's decision, not a verified entitlement.",
+  "decision_provenance": "verbatim from the lead's direction of 2026-10-14, relaying the owner's words \"just use the soundtracks I uploaded\"",
+  "source_terms_as_known": "licence terms unread (ancientgreek.eu refuses our connection)",
+  "source_terms_provenance": "verbatim from the lead's task of 2026-10-14 (the owner's facts as passed on by the lead)"
+ },
+ "extraction": {
+  "from": "the 48 kHz 24-bit extraction of the source copy (ffmpeg, libsoxr)",
+  "extraction_sha256": "1d88e75fd92e3b1e8a16f4516d8d5c118483e8fa2615df41bc920a015999169a",
+  "frames_half_open": [
+   95025,
+   1246507
+  ],
+  "n_frames": 1151482,
+  "duration_s": 23.989208,
+  "start_s": 1.979688,
+  "end_s": 25.968896,
+  "selection": "from the narration's first onset (end of the leading silence) to the last sentence-level pause that keeps the excerpt within 20-30 s",
+  "mono_rule": "(L + R) / 2: channels near-identical",
+  "near_identical_test": {
+   "pearson_r_min": 0.999,
+   "residual_db_max": -30.0
+  },
+  "channels_near_identical": true,
+  "processing": "none besides the mono rule: no fade, no filter, no gain, no normalisation; the level is set at playback by playback_gain_db",
+  "downmix_rounding": "mean of the two 24-bit channels rounded to the nearest 24-bit step (half to even), no dither",
+  "downmix_rounding_max_abs": 5.960464477539063e-08,
+  "first_onset_s": 2.083,
+  "sentence_pause_candidates": [
+   {
+    "pause_start_s": 15.735,
+    "pause_end_s": 16.795,
+    "excerpt_s": 14.502,
+    "in_range": false
+   },
+   {
+    "pause_start_s": 25.219,
+    "pause_end_s": 26.673,
+    "excerpt_s": 23.986,
+    "in_range": true
+   },
+   {
+    "pause_start_s": 43.135,
+    "pause_end_s": 44.458,
+    "excerpt_s": 41.902,
+    "in_range": false
+   }
+  ],
+  "chosen_pause": {
+   "pause_start_s": 25.219,
+   "pause_end_s": 26.673,
+   "excerpt_s": 23.986,
+   "in_range": true
+  },
+  "level_10ms_at_start_dbfs": -76.13253693819173,
+  "level_10ms_at_end_dbfs": -64.51468228676188,
+  "cut_rule": "start = onset - 0.1 s; end = min(pause start + 0.75 s, pause end - 0.25 s); each moved to the nearest zero crossing of the mono mix within +/- 5 ms; both at least 10 dB below -45.0 dBFS",
+  "text_content_note": "chosen by level only; agents did not listen. By its position it is the opening of the narration; which lines it covers was not checked.",
+  "peak_dbfs": -3.0113347171302314,
+  "rms_dbfs": -19.744359799255516,
+  "written_data_chunk_sha256": "59f0c227f883498f1daa32865b22a795bfa5e2263f11200fae52c2222fa67e6e",
+  "written_data_chunk_equals_packed_excerpt": true
+ },
+ "measurements": {
+  "frames": 13452713,
+  "duration_s": 280.264854,
+  "channels": 2,
+  "per_channel": [
+   {
+    "channel": 0,
+    "peak_dbfs": -2.9595594198956454,
+    "rms_dbfs_whole_file": -21.135636674200203,
+    "rms_dbfs_programme": -21.05611039182708,
+    "samples_at_full_scale": 0
+   },
+   {
+    "channel": 1,
+    "peak_dbfs": -2.9595594198956454,
+    "rms_dbfs_whole_file": -21.135636674204804,
+    "rms_dbfs_programme": -21.056110391831684,
+    "samples_at_full_scale": 0
+   }
+  ],
+  "peak_dbfs": -2.9595594198956454,
+  "digital_silence": {
+   "leading_frames": 91402,
+   "leading_s": 1.904208,
+   "trailing_frames": 152697,
+   "trailing_s": 3.181188,
+   "programme_span_s": [
+    1.904208,
+    277.083667
+   ]
+  },
+  "mono_mix_peak_dbfs": -2.9595594198956454,
+  "mono_mix_rms_dbfs_programme": -21.056110472825114,
+  "channel_relation": {
+   "pearson_r_programme": 0.9999999627000886,
+   "bit_identical": false,
+   "max_abs_l_minus_r": 0.007915616035461426,
+   "l_minus_r_re_l_plus_r_db": -77.29322172957256
+  },
+  "noise_floor": {
+   "definition": "quietest 200 ms window (RMS of the mono mix (L+R)/2, hop 10 ms) fully inside the programme span (digital silence at the file's ends excluded)",
+   "quietest_200ms_dbfs": -71.02438804766723,
+   "at_s": 269.074
+  },
+  "level_10ms_distribution_dbfs": {
+   "5": -59.49351518500392,
+   "10": -54.18420293084166,
+   "50": -27.721664502998493,
+   "90": -16.507661760621886,
+   "95": -14.74425703958111
+  },
+  "level_100ms_spread_dbfs": {
+   "p10": -47.694156278320804,
+   "p50": -25.04272491239415,
+   "p90": -16.721834156278177
+  },
+  "dryness": {
+   "definition": "not an ISO 3382 quantity; see owner_samples.py DRYNESS: stops are runs of >= 0.3 s below -45.0 dBFS (10 ms RMS, hop 1 ms); fall20 = time from the last level maximum (within 1 dB of the highest level in the 0.3 s before the stop) to 20 dB below it; T60-equivalent = 3 x the time from -5 dB to -25 dB re that maximum. Both include the voice's own release and the 10 ms window (an instant stop reads about 10 ms of fall20). The room cannot make the level fall faster than its own decay, so the fastest stops bound the recording space's decay from above; a noise gate or de-reverberation in the production would also shorten the falls.",
+   "stops": 25,
+   "fall20_ms": {
+    "n": 25,
+    "min": 19.0,
+    "p25": 93.0,
+    "median": 133.0,
+    "p75": 216.0,
+    "max": 348.0,
+    "fastest_five": [
+     19.0,
+     29.0,
+     49.0,
+     62.0,
+     80.0
+    ],
+    "unit": "ms"
+   },
+   "t60_equivalent_s": {
+    "n": 23,
+    "min": 0.048,
+    "p25": 0.2865,
+    "median": 0.564,
+    "p75": 0.8415,
+    "max": 1.305,
+    "fastest_five": [
+     0.048,
+     0.129,
+     0.129,
+     0.165,
+     0.258
+    ],
+    "unit": "s"
+   }
+  }
+ },
+ "playback_gain_db": -9.44,
+ "playback_level": {
+  "rule": "see the record's gain_rule; applied in the player (config audio.samples[].gainDb, patch K) to the decoded sample, so the wet and the dry path both carry it",
+  "bound_dbfs": -2.9999963075179075,
+  "bound_source": "the soprano's worst binding peak over the 96 served IRs",
+  "worst_binding_file": "state_A-S1_mouth__seat-2I12__foa.wav",
+  "worst_binding_peak_dbfs_before_gain": 6.436348294579435,
+  "worst_binding_peak_dbfs_after_gain": -3.0036517054205643,
+  "loudest_playback_file": "state_A_occupied-S1_mouth__seat-2I12__foa.wav",
+  "loudest_playback_peak_dbfs_after_gain": -5.715266683464552,
+  "quietest_playback_file": "state_A_occupied-S1_mouth__seat-3S03__foa.wav",
+  "quietest_playback_peak_dbfs_after_gain": -16.04478239195949,
+  "dry_path_peak_dbfs": -12.166361689480668,
+  "dry_path_gain_db": 0.28497302764956095
+ },
+ "credit": "Euripides, Bacchae 1-63, narrated in Ancient Attic Greek by Ioannis Stratakis; Podium-Arts, YouTube, https://youtu.be/m0EkSYMQp2U. Changes: the first 24.0 s of the narration, both channels averaged.",
+ "licence": "used by the owner's decision (Yishan Shen, 2026-10-14); the project did not verify the source's terms and this is not a verified entitlement; the project grants no reuse rights for this excerpt",
+ "licence_of_this_file": "no reuse rights granted by the project; basis of use: rights.decision",
+ "full_provenance": "kept as a project record (not served)",
+ "full_provenance_sha256": "df63507242851212c26a46eef620c6915cdeb2ce8d6bd4ed83e74dbb28023d39",
+ "created_utc": "2026-10-14T08:50:03Z"
+}

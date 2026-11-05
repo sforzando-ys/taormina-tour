@@ -1,0 +1,210 @@
+{
+ "schema": "taormina.atlas_tour.owner_sample/1",
+ "file": "gladiator-fight-excerpt.wav",
+ "bytes": 4330100,
+ "sha256": "f4e5b8e1ce86a4d4d928b3e49be8eecd832fbd03d347947b8ab199c1988d3707",
+ "format": {
+  "format_tag": "0x0001",
+  "format_name": "WAVE_FORMAT_PCM",
+  "channels": 1,
+  "sample_rate_hz": 48000,
+  "bits_per_sample": 24,
+  "data_bytes": 4330056,
+  "container": "RIFF/WAVE",
+  "subtype": "PCM_24",
+  "frames": 1443352,
+  "duration_s": 30.07
+ },
+ "display_name": "Gladiator fight - sound effect",
+ "kind": "PRODUCED FOLEY MIX (a sound effect from YouTube). Not anechoic: the mix carries its own ambience and is heard on top of the simulated response. Played as ONE emitter at the stage source (the voice source's position and directivity); the separate sources of a fight are not placed in the theatre. Not a historical recording or reconstruction.",
+ "content": "Gladiator Fight Sound Effect",
+ "truth_note": "The Bacchae is a studio reading with its own acoustics; the gladiator clip is a produced foley mix with its own ambience, played as one emitter at the stage source. Neither is anechoic; both are played through the simulated response as they are; no historical-authenticity claim.",
+ "about_text": "a produced sound-effect mix (\"Gladiator Fight Sound Effect\", Sound Effect Database, YouTube). It carries its own ambience and is not an anechoic recording; it is played through the simulated response as it is, as one emitter at the stage source (the voice source's position and directivity), so the separate sources of a fight are not placed in the theatre. It is a modern production, not a historical recording or reconstruction.",
+ "source": {
+  "platform": "YouTube",
+  "title": "Gladiator Fight Sound Effect",
+  "channel": "Sound Effect Database",
+  "author": "Sound Effect Database (channel; no individual author named)",
+  "url": "https://youtu.be/wC8NPyIk2Os",
+  "stated_duration": "15 s",
+  "duration_note": "the task names 15 s; the downloaded file measures 30.07 s (ffprobe container duration 30.069841 s); the clip does not repeat a 15 s part (excerpt.clean_check.repeat_check)",
+  "stated_copyright": "(c) 2022",
+  "description_terms": "description requires a paid single licence (US$1.99) per sound",
+  "downloaded_by": "Yishan Shen (owner), himself",
+  "downloaded_on": "2026-10-14",
+  "download_note": "the project made no download; the owner supplied the file",
+  "source_file_name": "gladiator.mp4",
+  "source_file_sha256": "e7fc9426e456de15de11036f0b18d17098ee74b802cdf11cc70748f79adf3571",
+  "source_file_bytes": 487425,
+  "ffprobe": {
+   "container": {
+    "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+    "format_long_name": "QuickTime / MOV",
+    "duration_s": "30.069841",
+    "size_bytes": "487425",
+    "bit_rate": "129678",
+    "nb_streams": 1,
+    "tags": {
+     "major_brand": "dash",
+     "minor_version": "0",
+     "compatible_brands": "iso6mp41",
+     "creation_time": "2023-06-20T21:27:38.000000Z"
+    }
+   },
+   "streams": [
+    {
+     "index": 0,
+     "codec_type": "audio",
+     "codec_name": "aac",
+     "codec_long_name": "AAC (Advanced Audio Coding)",
+     "profile": "LC",
+     "sample_fmt": "fltp",
+     "sample_rate": "44100",
+     "channels": 2,
+     "channel_layout": "stereo",
+     "time_base": "1/44100",
+     "duration_ts": 1326080,
+     "duration": "30.069841",
+     "bit_rate": "128072",
+     "tags": {
+      "creation_time": "2023-06-20T21:27:38.000000Z",
+      "language": "und",
+      "handler_name": "ISO Media file produced by Google Inc."
+     }
+    }
+   ],
+   "audio_only": true
+  },
+  "measured_duration_s": 30.069841,
+  "facts_provenance": "verbatim from the lead's task of 2026-10-14 (the owner's facts as passed on by the lead)"
+ },
+ "rights": {
+  "basis": "owner decision",
+  "decision": "Owner (Yishan Shen) directed on 2026-10-14 that these recordings be used as the tour's samples; the lead did not verify the source terms (Podium-Arts terms unread; Sound Effect Database states a paid single licence). This is the owner's decision, not a verified entitlement.",
+  "decision_provenance": "verbatim from the lead's direction of 2026-10-14, relaying the owner's words \"just use the soundtracks I uploaded\"",
+  "source_terms_as_known": "(c) 2022, description requires a paid single licence (US$1.99) per sound",
+  "source_terms_provenance": "verbatim from the lead's task of 2026-10-14 (the owner's facts as passed on by the lead)"
+ },
+ "extraction": {
+  "from": "the 48 kHz 24-bit extraction of the source copy (ffmpeg, libsoxr)",
+  "extraction_sha256": "8cc371d17e83bbfa8438db9d52d751617e1da88001c899ed62579b80da7fc59b",
+  "frames_half_open": [
+   0,
+   1443352
+  ],
+  "n_frames": 1443352,
+  "duration_s": 30.069833,
+  "start_s": 0.0,
+  "end_s": 30.069833,
+  "selection": "the whole clip (all frames of the 48 kHz extraction)",
+  "mono_rule": "(L + R) / 2 (lead's rule for this clip: mono by downmix)",
+  "near_identical_test": {
+   "pearson_r_min": 0.999,
+   "residual_db_max": -30.0
+  },
+  "channels_near_identical": true,
+  "processing": "none besides the mono rule: no fade, no filter, no gain, no normalisation; the level is set at playback by playback_gain_db",
+  "downmix_rounding": "mean of the two 24-bit channels rounded to the nearest 24-bit step (half to even), no dither",
+  "downmix_rounding_max_abs": 5.960464477539063e-08,
+  "clean_check": {
+   "samples_at_full_scale": 0,
+   "min_10ms_level_dbfs_from_1s_to_end_minus_0.1s": -25.88092360506589,
+   "dropout_rule": "a dropout would be a 10 ms level below -60 dBFS inside the body of the clip",
+   "clean": true,
+   "repeat_check": {
+    "normalised_autocorrelation_max_lag_1_to_29_s": 0.13739736474857922,
+    "at_lag_s": 20.9609,
+    "max_at_lag_15_s_pm_0.2_s": 0.008447027402336327,
+    "meaning": "a repeated part would give a value near 1 at its lag"
+   }
+  },
+  "peak_dbfs": -6.254620991424471,
+  "rms_dbfs": -20.861746530204822,
+  "written_data_chunk_sha256": "65633deeae5feff60d98862d8c587956f4455fdb1a659be7575038439b21d005",
+  "written_data_chunk_equals_packed_excerpt": true
+ },
+ "measurements": {
+  "frames": 1443352,
+  "duration_s": 30.069833,
+  "channels": 2,
+  "per_channel": [
+   {
+    "channel": 0,
+    "peak_dbfs": -6.254620991424471,
+    "rms_dbfs_whole_file": -20.861037449178173,
+    "rms_dbfs_programme": -20.850336558068904,
+    "samples_at_full_scale": 0
+   },
+   {
+    "channel": 1,
+    "peak_dbfs": -6.254620991424471,
+    "rms_dbfs_whole_file": -20.86103744850726,
+    "rms_dbfs_programme": -20.85033655739799,
+    "samples_at_full_scale": 0
+   }
+  ],
+  "peak_dbfs": -6.254620991424471,
+  "digital_silence": {
+   "leading_frames": 3542,
+   "leading_s": 0.073792,
+   "trailing_frames": 10,
+   "trailing_s": 0.000208,
+   "programme_span_s": [
+    0.073792,
+    30.069625
+   ]
+  },
+  "mono_mix_peak_dbfs": -6.254620991424471,
+  "mono_mix_rms_dbfs_programme": -20.851045638222327,
+  "channel_relation": {
+   "pearson_r_programme": 0.9996734830232502,
+   "bit_identical": false,
+   "max_abs_l_minus_r": 0.16155564785003662,
+   "l_minus_r_re_l_plus_r_db": -37.87053321337057
+  },
+  "noise_floor": {
+   "definition": "quietest 200 ms window (RMS of the mono mix (L+R)/2, hop 10 ms) fully inside the programme span (digital silence at the file's ends excluded)",
+   "quietest_200ms_dbfs": -33.30369396382121,
+   "at_s": 0.074
+  },
+  "level_10ms_distribution_dbfs": {
+   "5": -23.514732722023467,
+   "10": -22.867171869356888,
+   "50": -21.0199705624058,
+   "90": -19.281034850272064,
+   "95": -18.756164757804054
+  },
+  "level_100ms_spread_dbfs": {
+   "p10": -22.1201240484202,
+   "p50": -20.854988321600786,
+   "p90": -19.760685987309614
+  },
+  "dryness": {
+   "definition": "not an ISO 3382 quantity; see owner_samples.py DRYNESS: stops are runs of >= 0.3 s below -45.0 dBFS (10 ms RMS, hop 1 ms); fall20 = time from the last level maximum (within 1 dB of the highest level in the 0.3 s before the stop) to 20 dB below it; T60-equivalent = 3 x the time from -5 dB to -25 dB re that maximum. Both include the voice's own release and the 10 ms window (an instant stop reads about 10 ms of fall20). The room cannot make the level fall faster than its own decay, so the fastest stops bound the recording space's decay from above; a noise gate or de-reverberation in the production would also shorten the falls.",
+   "stops": 0,
+   "fall20_ms": null,
+   "t60_equivalent_s": null
+  }
+ },
+ "playback_gain_db": -2.13,
+ "playback_level": {
+  "rule": "see the record's gain_rule; applied in the player (config audio.samples[].gainDb, patch K) to the decoded sample, so the wet and the dry path both carry it",
+  "bound_dbfs": -2.9999963075179075,
+  "bound_source": "the soprano's worst binding peak over the 96 served IRs",
+  "worst_binding_file": "state_A-S1_mouth__seat-2I12__foa.wav",
+  "worst_binding_peak_dbfs_before_gain": -0.8761105050819123,
+  "worst_binding_peak_dbfs_after_gain": -3.0061105050819124,
+  "loudest_playback_file": "state_A-S1_mouth__seat-3I03__foa.wav",
+  "loudest_playback_peak_dbfs_after_gain": -5.70594596609979,
+  "quietest_playback_file": "state_B_occupied-S1_mouth__seat-3S03__foa.wav",
+  "quietest_playback_peak_dbfs_after_gain": -14.981936017748378,
+  "dry_path_peak_dbfs": -8.099647963774908,
+  "dry_path_gain_db": 0.28497302764956095
+ },
+ "credit": "\"Gladiator Fight Sound Effect\", Sound Effect Database, YouTube, https://youtu.be/wC8NPyIk2Os, (c) 2022. Changes: the whole clip, both channels averaged.",
+ "licence": "used by the owner's decision (Yishan Shen, 2026-10-14); the project did not verify the source's terms and this is not a verified entitlement; the project grants no reuse rights for this excerpt",
+ "licence_of_this_file": "no reuse rights granted by the project; basis of use: rights.decision",
+ "full_provenance": "kept as a project record (not served)",
+ "full_provenance_sha256": "50014adf4632f1ab3ded970408e796e43c5280c0f5c3b0c6d2626e5f61cb911e",
+ "created_utc": "2026-10-14T08:50:27Z"
+}

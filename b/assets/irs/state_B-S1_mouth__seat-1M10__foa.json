@@ -1,0 +1,775 @@
+{
+ "schema": "taormina.atlas_tour.foa_ir_sidecar/3",
+ "file": "state_B-S1_mouth__seat-1M10__foa.wav",
+ "bytes": 662612,
+ "sha256": "875efecf0ff194835e0575f7d84b023e282c12e49c22010116888bb2398a5718",
+ "label": "Simulated, not recorded. These responses are the predictions of an uncalibrated computational model (COMSOL Multiphysics\u00ae v. 6.4 ray acoustics; statistical phase synthesised from ray energy) of two states of the theatre: A, an intact Roman hypothesis, and B, the present ruin. This model has not been calibrated against measured impulse responses; it is what our model predicts, not what it sounded like. First-order ambisonic encoding from ray arrival directions at a 1 m-radius collection cylinder; reverberation-time metrics are unreliable outdoors; no absolute level or speech-intelligibility claim.",
+ "statistical_label": "STATISTICAL / PERCEPTUAL (ADR 0011 D5). The energies, arrival times and ISO 3382-1 partitions are the echogram's; the PHASE IS SYNTHESISED. Each reflection is a random-phase noise burst carrying the right energy in the right 1 ms bin - there is no coherent wavefront, no comb filtering and no interference with the direct sound. ISO numbers are computed from the echogram and are never back-derived from this waveform.",
+ "foa_label": "FOA statistical render: the direct pulse is encoded at the EXACT seat-to-source direction; every reflected ray crossing of the seat's collection cylinder is an independent random-phase band burst carrying that crossing's energy in its 1 ms entry bin, encoded SN3D at its arrival direction. Directions are statistical samples of the arriving field (sparse where few rays crossed - see n_crossings per band), so this is a spatialised statistical IR, not a measured B-format RIR. Per-band W energies, the direct/reflected split and the ISO window partitions close on the echogram exactly as the accepted mono kernel does; per window X, Y and Z share ONE closure gain, so every burst keeps its encoded direction and E_X+E_Y+E_Z = E_W; the noise realisation differs from the mono kernel's.",
+ "format": {
+  "container": "RIFF/WAVE",
+  "subtype": "PCM_24",
+  "sample_rate_hz": 44100,
+  "channels": 4,
+  "frames": 55214,
+  "duration_s": 1.2520181405895692,
+  "wav_fmt_chunk": {
+   "format_tag": "0x0001",
+   "format_name": "WAVE_FORMAT_PCM",
+   "channels": 4,
+   "sample_rate_hz": 44100,
+   "bits_per_sample": 24,
+   "data_bytes": 662568
+  },
+  "ambisonics": {
+   "order": 1,
+   "channel_order": "ACN [W, Y, Z, X]",
+   "normalisation": "SN3D",
+   "convention": "AmbiX"
+  },
+  "peak_dbfs": -16.389817655072093,
+  "readback_max_abs_err_vs_master_x_gain": 1.1897417011163825e-07
+ },
+ "timing": {
+  "origin": "source emission at frame 0",
+  "direct_included": true,
+  "trimmed": false,
+  "complete_tail": true,
+  "same_length_and_origin_as": "state_B-S1_mouth__seat-1M10__broadband__synthetic_ir.wav"
+ },
+ "state": "B",
+ "state_tag": "state_B",
+ "occupancy": "empty",
+ "source": "S1",
+ "source_position_id": "mouth",
+ "source_position_m": [
+  0.0,
+  19.22,
+  3.9
+ ],
+ "seat_id": "seat-1M10",
+ "seat_ear_xyz_m": [
+  -38.08309118190891,
+  -5.593439801069585,
+  12.612499999999999
+ ],
+ "parent_run_ids": [
+  "state_B-S1_mouth-1000Hz-s1-328c645a9b",
+  "state_B-S1_mouth-125Hz-s1-5c0746dde5",
+  "state_B-S1_mouth-2000Hz-s1-071cc2e710",
+  "state_B-S1_mouth-250Hz-s1-27f6bb4c8b",
+  "state_B-S1_mouth-4000Hz-s1-1b2685555b",
+  "state_B-S1_mouth-500Hz-s1-112b7c4fe6"
+ ],
+ "parent_inputs": {
+  "state_B-S1_mouth-1000Hz-s1-328c645a9b": {
+   "band_hz": 1000.0,
+   "seats_npz": "seats_1000Hz.npz",
+   "seats_npz_sha256": "c05cf4ce383cf32aab28aac11d0cfbefd7d3fe3cb3084900a707c5dc0094a661",
+   "seats_npz_bytes": 276073,
+   "seats_json": "seats_1000Hz.json",
+   "seats_json_sha256": "47f22145e9f30550887df7e34225cadb91e0cf19d9ab69f3c1c1a887f8dbd4b5",
+   "seats_json_bytes": 23952,
+   "schema": "taormina.seats/2",
+   "rho_kg_m3": 1.1528920281970607,
+   "sound_speed_m_s": 346.72670866260074,
+   "source_position_m": [
+    0.0,
+    19.22,
+    3.9
+   ]
+  },
+  "state_B-S1_mouth-125Hz-s1-5c0746dde5": {
+   "band_hz": 125.0,
+   "seats_npz": "seats_125Hz.npz",
+   "seats_npz_sha256": "42c5003c2a46255639a6871cf3cd0a720b6aa170ccdb698d9cae0a2c87902034",
+   "seats_npz_bytes": 276138,
+   "seats_json": "seats_125Hz.json",
+   "seats_json_sha256": "5934caa9211f1d9554dc32cc91b8b1854810a71444298479ee1b143ea0ee067e",
+   "seats_json_bytes": 23952,
+   "schema": "taormina.seats/2",
+   "rho_kg_m3": 1.1528920281970607,
+   "sound_speed_m_s": 346.72670866260074,
+   "source_position_m": [
+    0.0,
+    19.22,
+    3.9
+   ]
+  },
+  "state_B-S1_mouth-2000Hz-s1-071cc2e710": {
+   "band_hz": 2000.0,
+   "seats_npz": "seats_2000Hz.npz",
+   "seats_npz_sha256": "0af60d74e9427703900ad3db5fc5a8c99720016628cb7733145db9898a73cb5c",
+   "seats_npz_bytes": 275993,
+   "seats_json": "seats_2000Hz.json",
+   "seats_json_sha256": "5d16e185d133e95757ac8078984b28cbe3fc69aea6d1e5a890eed251d1a11a51",
+   "seats_json_bytes": 23934,
+   "schema": "taormina.seats/2",
+   "rho_kg_m3": 1.1528920281970607,
+   "sound_speed_m_s": 346.72670866260074,
+   "source_position_m": [
+    0.0,
+    19.22,
+    3.9
+   ]
+  },
+  "state_B-S1_mouth-250Hz-s1-27f6bb4c8b": {
+   "band_hz": 250.0,
+   "seats_npz": "seats_250Hz.npz",
+   "seats_npz_sha256": "a2864a39fd24a9aa071b1266db428e692f6fa9f2023262eb31d83983821153c0",
+   "seats_npz_bytes": 276058,
+   "seats_json": "seats_250Hz.json",
+   "seats_json_sha256": "a2c5e5f232b26c02acd44759616d8e0c7792bf495ed1d375f4b598f49b55dc87",
+   "seats_json_bytes": 23939,
+   "schema": "taormina.seats/2",
+   "rho_kg_m3": 1.1528920281970607,
+   "sound_speed_m_s": 346.72670866260074,
+   "source_position_m": [
+    0.0,
+    19.22,
+    3.9
+   ]
+  },
+  "state_B-S1_mouth-4000Hz-s1-1b2685555b": {
+   "band_hz": 4000.0,
+   "seats_npz": "seats_4000Hz.npz",
+   "seats_npz_sha256": "eae4d769c4b7d0006554815c94c5682a693ce94c8b90a0c2336d0e0797a748ec",
+   "seats_npz_bytes": 276040,
+   "seats_json": "seats_4000Hz.json",
+   "seats_json_sha256": "fce1255131bcf9c9dbecec6cb4af4b247840e10c1d960d467c5b896141852990",
+   "seats_json_bytes": 23956,
+   "schema": "taormina.seats/2",
+   "rho_kg_m3": 1.1528920281970607,
+   "sound_speed_m_s": 346.72670866260074,
+   "source_position_m": [
+    0.0,
+    19.22,
+    3.9
+   ]
+  },
+  "state_B-S1_mouth-500Hz-s1-112b7c4fe6": {
+   "band_hz": 500.0,
+   "seats_npz": "seats_500Hz.npz",
+   "seats_npz_sha256": "7dac22d60356d735887bc7e63e001dc8b48528d8f939570a6372c3c9992c28b7",
+   "seats_npz_bytes": 275995,
+   "seats_json": "seats_500Hz.json",
+   "seats_json_sha256": "8d60ab789c7e9d37803d52c0ba6ae02c64b0b7677fa1c08ff8a2cb235a0e5b58",
+   "seats_json_bytes": 23959,
+   "schema": "taormina.seats/2",
+   "rho_kg_m3": 1.1528920281970607,
+   "sound_speed_m_s": 346.72670866260074,
+   "source_position_m": [
+    0.0,
+    19.22,
+    3.9
+   ]
+  }
+ },
+ "parent_inputs_note": "file names, SHA-256 and bytes of the accepted v1-min run products; their storage location is a project record and is not published",
+ "accepted_mono_kernel": {
+  "id": "state_B-S1_mouth__seat-1M10__broadband__synthetic_ir",
+  "sha256": "349f0426e6a84e92b71bb8a8365f6ecf8bb7ce5047a6b20fe6276756e1803807",
+  "reproduced_max_abs_diff_over_peak": 3.4153443644224296e-08
+ },
+ "bands_hz": [
+  125.0,
+  250.0,
+  500.0,
+  1000.0,
+  2000.0,
+  4000.0
+ ],
+ "per_band": {
+  "125": {
+   "run_id": "state_B-S1_mouth-125Hz-s1-5c0746dde5",
+   "k_pa2s_per_j_m3": 12250624.98405694,
+   "seed_material": "taormina.ir_synthesis/1|state_B|seat-1M10|125.0|ba1d5da4749ec9e6c7e40ad249d67c1ba916ec5af93059b234af5f31967686f5",
+   "seed_sha256": "277782a23ecd4ab6a2b6ac94930ab038ee4f7120baa18a6093bb058551d873e3",
+   "seed_use": "numpy.random.default_rng(int(seed_sha256, 16)) - the accepted seed integer; its stream is consumed as an (n_crossings, L) matrix, one row per crossing event, so the realisation is not the mono kernel's",
+   "n_crossings": 195,
+   "n_visits_reflected": 117,
+   "gate_verdict": "published",
+   "kernel_taps": 2205,
+   "window_gains_beta": [
+    2.7964807509980507,
+    4.659002564891155,
+    2.3451410022256387
+   ],
+   "window_direct_projection_alpha": [
+    [
+     -0.08146619697994517,
+     -0.2546261502432279,
+     -0.01543132281725586,
+     -0.12039617363586667
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "window_channel_gains_WYZX": [
+    [
+     2.7964807509980507,
+     2.8511812606824596,
+     2.8511812606824596,
+     2.8511812606824596
+    ],
+    [
+     4.659002564891155,
+     4.40377969114188,
+     4.40377969114188,
+     4.40377969114188
+    ],
+    [
+     2.3451410022256387,
+     2.3777368570361475,
+     2.3777368570361475,
+     2.3777368570361475
+    ]
+   ],
+   "window_raw_xyz_over_w_before_closure": [
+    0.9619976533490497,
+    1.119269657331729,
+    0.972770384470716
+   ],
+   "t0_s": 0.13053077385605077,
+   "t_direct_centroid_s": 0.13345835452814658,
+   "direct_arrival_unit_local": [
+    0.8228656220123908,
+    0.5361467764957488,
+    -0.1882519645671157
+   ],
+   "direct_sn3d_gains_WYZX": [
+    1.0,
+    0.9444835295940179,
+    -0.1882519645671157,
+    0.26928063458453017
+   ],
+   "W_energy_pa2s": 6.246975255095776e-05,
+   "energies_pa2s_WYZX": [
+    6.246975255095776e-05,
+    3.3862446460863805e-05,
+    8.293258569772693e-06,
+    2.0314047520321285e-05
+   ],
+   "W_vs_accepted_target_rel": 2.1694542722918182e-16,
+   "first_order_energy_ratio_XYZ_over_W": 1.0000000000000002,
+   "w_audit_passed": true
+  },
+  "250": {
+   "run_id": "state_B-S1_mouth-250Hz-s1-27f6bb4c8b",
+   "k_pa2s_per_j_m3": 24501249.96811388,
+   "seed_material": "taormina.ir_synthesis/1|state_B|seat-1M10|250.0|76e48ab7394bcee25415e374b04a848369ec5d136d88883233e689b43292b9c8",
+   "seed_sha256": "e1aafdc39b89ed859d545f62ba90480a40c3c86579c2dfcc4ec4b6c0e60e86d4",
+   "seed_use": "numpy.random.default_rng(int(seed_sha256, 16)) - the accepted seed integer; its stream is consumed as an (n_crossings, L) matrix, one row per crossing event, so the realisation is not the mono kernel's",
+   "n_crossings": 195,
+   "n_visits_reflected": 117,
+   "gate_verdict": "published",
+   "kernel_taps": 2205,
+   "window_gains_beta": [
+    2.6428202316307,
+    2.147717887939754,
+    2.371202586445371
+   ],
+   "window_direct_projection_alpha": [
+    [
+     0.3989700987138408,
+     0.33674492251086124,
+     -0.19701348553102535,
+     0.02055038917041777
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "window_channel_gains_WYZX": [
+    [
+     2.6428202316307,
+     2.1919086473157945,
+     2.1919086473157945,
+     2.1919086473157945
+    ],
+    [
+     2.147717887939754,
+     2.0912610226597077,
+     2.0912610226597077,
+     2.0912610226597077
+    ],
+    [
+     2.371202586445371,
+     2.335214706059913,
+     2.335214706059913,
+     2.335214706059913
+    ]
+   ],
+   "window_raw_xyz_over_w_before_closure": [
+    1.4537520683195113,
+    1.0547219456511554,
+    1.0310594002594078
+   ],
+   "t0_s": 0.13053077385605077,
+   "t_direct_centroid_s": 0.13345828738787632,
+   "direct_arrival_unit_local": [
+    0.8228656220123908,
+    0.5361467764957488,
+    -0.1882519645671157
+   ],
+   "direct_sn3d_gains_WYZX": [
+    1.0,
+    0.9444835295940179,
+    -0.1882519645671157,
+    0.26928063458453017
+   ],
+   "W_energy_pa2s": 0.00011551587423803771,
+   "energies_pa2s_WYZX": [
+    0.00011551587423803771,
+    7.831015157307915e-05,
+    1.636396917728682e-05,
+    2.0841753487671758e-05
+   ],
+   "W_vs_accepted_target_rel": 2.34643545667876e-16,
+   "first_order_energy_ratio_XYZ_over_W": 1.0000000000000002,
+   "w_audit_passed": true
+  },
+  "500": {
+   "run_id": "state_B-S1_mouth-500Hz-s1-112b7c4fe6",
+   "k_pa2s_per_j_m3": 49002499.93622776,
+   "seed_material": "taormina.ir_synthesis/1|state_B|seat-1M10|500.0|849c6d54262d337ff66475e7fec9002e213e6fbbf430afe898340b891a8ac222",
+   "seed_sha256": "4811c7edba0ea474b636d269898c1b48a554780328e7a4759364a91d9a4b201d",
+   "seed_use": "numpy.random.default_rng(int(seed_sha256, 16)) - the accepted seed integer; its stream is consumed as an (n_crossings, L) matrix, one row per crossing event, so the realisation is not the mono kernel's",
+   "n_crossings": 195,
+   "n_visits_reflected": 117,
+   "gate_verdict": "published",
+   "kernel_taps": 1571,
+   "window_gains_beta": [
+    2.0353836392899196,
+    1.8728224258908253,
+    1.6768922205992904
+   ],
+   "window_direct_projection_alpha": [
+    [
+     0.3074125318738314,
+     0.2611908478880504,
+     -0.08855555485086362,
+     0.08124225881059279
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "window_channel_gains_WYZX": [
+    [
+     2.0353836392899196,
+     2.3607756493051775,
+     2.3607756493051775,
+     2.3607756493051775
+    ],
+    [
+     1.8728224258908253,
+     1.925238207534944,
+     1.925238207534944,
+     1.925238207534944
+    ],
+    [
+     1.6768922205992904,
+     1.6526797856068711,
+     1.6526797856068711,
+     1.6526797856068711
+    ]
+   ],
+   "window_raw_xyz_over_w_before_closure": [
+    0.7433325056493439,
+    0.9462900168223347,
+    1.0295154527137846
+   ],
+   "t0_s": 0.13053077385605077,
+   "t_direct_centroid_s": 0.13345770264070922,
+   "direct_arrival_unit_local": [
+    0.8228656220123908,
+    0.5361467764957488,
+    -0.1882519645671157
+   ],
+   "direct_sn3d_gains_WYZX": [
+    1.0,
+    0.9444835295940179,
+    -0.1882519645671157,
+    0.26928063458453017
+   ],
+   "W_energy_pa2s": 0.0003079765591700806,
+   "energies_pa2s_WYZX": [
+    0.0003079765591700806,
+    0.00020722470126348065,
+    5.145327507927768e-05,
+    4.929858282732241e-05
+   ],
+   "W_vs_accepted_target_rel": 0.0,
+   "first_order_energy_ratio_XYZ_over_W": 1.0000000000000004,
+   "w_audit_passed": true
+  },
+  "1000": {
+   "run_id": "state_B-S1_mouth-1000Hz-s1-328c645a9b",
+   "k_pa2s_per_j_m3": 98004999.87245552,
+   "seed_material": "taormina.ir_synthesis/1|state_B|seat-1M10|1000.0|7b14041ef8d0ce556585191acc11b9ac4739dc4bc37403d6d17a060f46de385a",
+   "seed_sha256": "39f29366824b23c3ed3741eb6be78d69c03690cb6bb9e598b5ac6fa9e9463811",
+   "seed_use": "numpy.random.default_rng(int(seed_sha256, 16)) - the accepted seed integer; its stream is consumed as an (n_crossings, L) matrix, one row per crossing event, so the realisation is not the mono kernel's",
+   "n_crossings": 195,
+   "n_visits_reflected": 117,
+   "gate_verdict": "published",
+   "kernel_taps": 785,
+   "window_gains_beta": [
+    1.1412445075546882,
+    2.0093169268691193,
+    1.418925077322821
+   ],
+   "window_direct_projection_alpha": [
+    [
+     0.11748858155767442,
+     0.11394442658847853,
+     0.00613034549840725,
+     0.04604593918523359
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "window_channel_gains_WYZX": [
+    [
+     1.1412445075546882,
+     1.136858062173086,
+     1.136858062173086,
+     1.136858062173086
+    ],
+    [
+     2.0093169268691193,
+     1.9534803873486704,
+     1.9534803873486704,
+     1.9534803873486704
+    ],
+    [
+     1.418925077322821,
+     1.4155285530936543,
+     1.4155285530936543,
+     1.4155285530936543
+    ]
+   ],
+   "window_raw_xyz_over_w_before_closure": [
+    1.0077316735365371,
+    1.057983208623362,
+    1.0048047058575365
+   ],
+   "t0_s": 0.13053077385605077,
+   "t_direct_centroid_s": 0.13345639110658036,
+   "direct_arrival_unit_local": [
+    0.8228656220123908,
+    0.5361467764957488,
+    -0.1882519645671157
+   ],
+   "direct_sn3d_gains_WYZX": [
+    1.0,
+    0.9444835295940179,
+    -0.1882519645671157,
+    0.26928063458453017
+   ],
+   "W_energy_pa2s": 0.00034629702281026444,
+   "energies_pa2s_WYZX": [
+    0.00034629702281026444,
+    0.00024286800667212347,
+    4.769943907632927e-05,
+    5.572957706181166e-05
+   ],
+   "W_vs_accepted_target_rel": 0.0,
+   "first_order_energy_ratio_XYZ_over_W": 1.0,
+   "w_audit_passed": true
+  },
+  "2000": {
+   "run_id": "state_B-S1_mouth-2000Hz-s1-071cc2e710",
+   "k_pa2s_per_j_m3": 196009999.74491104,
+   "seed_material": "taormina.ir_synthesis/1|state_B|seat-1M10|2000.0|1d3a69efa7d3b18b654585b71fa2671ef63f32ae961779aa6fff3e6c515d58bc",
+   "seed_sha256": "6c26fe2d603bd66c53153e84d4b56e89daa243d1413781730efd3e15d4aed8ae",
+   "seed_use": "numpy.random.default_rng(int(seed_sha256, 16)) - the accepted seed integer; its stream is consumed as an (n_crossings, L) matrix, one row per crossing event, so the realisation is not the mono kernel's",
+   "n_crossings": 195,
+   "n_visits_reflected": 117,
+   "gate_verdict": "published",
+   "kernel_taps": 393,
+   "window_gains_beta": [
+    0.9375568173696714,
+    0.9437462182486429,
+    0.9956390818771487
+   ],
+   "window_direct_projection_alpha": [
+    [
+     -0.10132190465019275,
+     -0.11658145236432606,
+     0.008855143445452187,
+     -0.044885877458141404
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "window_channel_gains_WYZX": [
+    [
+     0.9375568173696714,
+     0.8729971938434077,
+     0.8729971938434077,
+     0.8729971938434077
+    ],
+    [
+     0.9437462182486429,
+     0.93924228869927,
+     0.93924228869927,
+     0.93924228869927
+    ],
+    [
+     0.9956390818771487,
+     1.0261089188965884,
+     1.0261089188965884,
+     1.0261089188965884
+    ]
+   ],
+   "window_raw_xyz_over_w_before_closure": [
+    1.1533722464196678,
+    1.0096135542550155,
+    0.941492676849342
+   ],
+   "t0_s": 0.13053077385605077,
+   "t_direct_centroid_s": 0.13345568990926313,
+   "direct_arrival_unit_local": [
+    0.8228656220123908,
+    0.5361467764957488,
+    -0.1882519645671157
+   ],
+   "direct_sn3d_gains_WYZX": [
+    1.0,
+    0.9444835295940179,
+    -0.1882519645671157,
+    0.26928063458453017
+   ],
+   "W_energy_pa2s": 0.0005380200237145361,
+   "energies_pa2s_WYZX": [
+    0.0005380200237145361,
+    0.0003597661513621954,
+    7.110729311034113e-05,
+    0.00010714657924199971
+   ],
+   "W_vs_accepted_target_rel": 2.0151706715301783e-16,
+   "first_order_energy_ratio_XYZ_over_W": 1.0000000000000002,
+   "w_audit_passed": true
+  },
+  "4000": {
+   "run_id": "state_B-S1_mouth-4000Hz-s1-1b2685555b",
+   "k_pa2s_per_j_m3": 392019999.4898221,
+   "seed_material": "taormina.ir_synthesis/1|state_B|seat-1M10|4000.0|2b17975d3316dac5bad114c04c522d2bfb3acb586f59dfbffec45c86695b6c13",
+   "seed_sha256": "cd87c6c9366b2f85f574ed9c4eccd3903a653942c8b954f9c87ea4dfbbe92b98",
+   "seed_use": "numpy.random.default_rng(int(seed_sha256, 16)) - the accepted seed integer; its stream is consumed as an (n_crossings, L) matrix, one row per crossing event, so the realisation is not the mono kernel's",
+   "n_crossings": 195,
+   "n_visits_reflected": 117,
+   "gate_verdict": "published",
+   "kernel_taps": 197,
+   "window_gains_beta": [
+    1.11528287898114,
+    1.1712272784990223,
+    1.1371714404715252
+   ],
+   "window_direct_projection_alpha": [
+    [
+     0.011243827951346475,
+     -0.0014088683199187395,
+     -0.035125452351963724,
+     -0.018160347363182033
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ],
+   "window_channel_gains_WYZX": [
+    [
+     1.11528287898114,
+     1.0441952798725844,
+     1.0441952798725844,
+     1.0441952798725844
+    ],
+    [
+     1.1712272784990223,
+     1.172286963981928,
+     1.172286963981928,
+     1.172286963981928
+    ],
+    [
+     1.1371714404715252,
+     1.145235027509807,
+     1.145235027509807,
+     1.145235027509807
+    ]
+   ],
+   "window_raw_xyz_over_w_before_closure": [
+    1.1407923997027265,
+    0.9981929227815324,
+    0.9859675978604774
+   ],
+   "t0_s": 0.13053077385605077,
+   "t_direct_centroid_s": 0.13345492819150476,
+   "direct_arrival_unit_local": [
+    0.8228656220123908,
+    0.5361467764957488,
+    -0.1882519645671157
+   ],
+   "direct_sn3d_gains_WYZX": [
+    1.0,
+    0.9444835295940179,
+    -0.1882519645671157,
+    0.26928063458453017
+   ],
+   "W_energy_pa2s": 0.0008480656720810087,
+   "energies_pa2s_WYZX": [
+    0.0008480656720810087,
+    0.0005962964923622504,
+    9.696196305243768e-05,
+    0.0001548072166663206
+   ],
+   "W_vs_accepted_target_rel": 2.556882581569555e-16,
+   "first_order_energy_ratio_XYZ_over_W": 1.0,
+   "w_audit_passed": true
+  }
+ },
+ "synthesis": {
+  "algorithm": "taormina.atlas_tour.foa_ir/1",
+  "accepted_synthesis_version": "taormina.ir_synthesis/1",
+  "fs_hz": 44100,
+  "band_kernel": "synthesis.band_kernel default (Kaiser brick-wall octave, transition 0.10 of the octave, 25 ms half-length cap)",
+  "k_scale": "K_b = rho c^2 (fHigh - fLow), the run's medium (ADR 0010 C)",
+  "reflections": "one random-phase band burst per reflected crossing event, amplitude sqrt(K e_j / dt) in its 1 ms entry bin (the histogram's own bin), band-filtered before and after the envelope as synthesise_ir does",
+  "direct": "synthesise_ir's unit-energy band pulse at the deterministic direct centroid with energy K E_dir, encoded at the exact seat-to-source direction",
+  "windows": "per ISO window (<50, 50-80, >=80 ms from t0) each channel's reflected part is orthogonalised against the direct pulse; W closes on the histogram (as synthesise_ir), X, Y and Z share one closure gain so that E_X+E_Y+E_Z = E_W per window and every burst keeps its direction",
+  "assembly": "linear pressure sum of the six bands, R_b = 1 (basis band balance)",
+  "basis_disclaimer": "band balance is the campaign's per-band basis powers, not a talker spectrum (ADR 0008 D2)",
+  "realisation_note": "A, B and occupancy use independent random realisations (seeds from state, seat and band); small audible differences can be noise realisation rather than acoustics"
+ },
+ "head_frame": {
+  "front": "true north",
+  "left": "west",
+  "up": "+Z",
+  "front_local": [
+   0.754709580222772,
+   -0.6560590289905073,
+   0.0
+  ],
+  "left_local": [
+   0.6560590289905073,
+   0.754709580222772,
+   -0.0
+  ],
+  "up_local": [
+   0.0,
+   0.0,
+   1.0
+  ],
+  "azimuth_deg_local_plus_y": 229.0,
+  "azimuth_uncertainty_deg": 2.0,
+  "note": "file front = true north (bearing 0); the tour's IR_Rotation (a measured constant, BRIEF 4.4) turns it so that a listener facing the stage hears the direct sound ahead"
+ },
+ "source_clip": null,
+ "source_clip_null_reason": "pure synthetic impulse response (ADR 0015 D5): no source clip is convolved into this file, so it has no clip identity, clip licence, resampling or convolution record; the tour convolves a separately credited dry sample in the browser at playback",
+ "auralisation_mastering_set": null,
+ "auralisation_mastering_set_null_reason": "pure synthetic impulse response, not an auralisation (ADR 0015 D5): no auralisation mastering set applies. 'mastering' is the tour's common gain over its comparison set of impulse responses, a separate record",
+ "mastering": {
+  "comparison_set_id": "taormina-atlas-tour-voice/2",
+  "comparison_set_configs": [
+   "state_A-S1_mouth",
+   "state_A_occupied-S1_mouth",
+   "state_B-S1_mouth",
+   "state_B_occupied-S1_mouth"
+  ],
+  "members": 96,
+  "members_list_sha256": "7b1f4db285eb4e078e2f53afc6102ccd19132b3c753ebfdb5fab6240f06916fb",
+  "partial": false,
+  "partial_reason": null,
+  "expected_members": 96,
+  "gain": 0.050053122287271185,
+  "gain_db": -26.011376525595796,
+  "gain_rule": "one common gain over the comparison set; binding peak (max of the W peak and the stock stereo decode at its worst orientation, sample convolved at 44.1 kHz) = -3 dBFS",
+  "binding_file": "state_A-S1_mouth__seat-5I03__foa.wav",
+  "target_peak_dbfs": -3.0,
+  "gain_record": "irs/gain.json (project record, not served)",
+  "gain_record_sha256": "ef3837e3bdc1acdc28b5beb5e3c6973e7445d949778b914dfd7cf8bea4329595",
+  "loudness_lufs": null,
+  "loudness_lufs_reason": "not measured: peak-based tour gain, not -23 LUFS mastering",
+  "limiter": null,
+  "clip_samples": 0,
+  "true_peak_dbfs": null,
+  "true_peak_reason": "sample peaks only"
+ },
+ "audit": {
+  "passed": true,
+  "record": "irs/audit.json (project record, not served)",
+  "record_sha256": "b7afea23a3aa6f8e176865aa6177daeb6090ea8e80c5fc244ccdf1ba1f627f0b",
+  "evidence": "inherited: this file's entry in that record, written before the gain"
+ },
+ "licence": "intended licence CC BY 4.0, not yet declared: the project's result-data licence is declared at its first data release (owner item); until then no reuse licence is granted.",
+ "attribution": "Taormina acoustics study, Yishan Shen (direction, method, groundwork, supervision; agents assisted). Simulation: COMSOL Multiphysics\u00ae v. 6.4, COMSOL AB. Voice directivity: P\u00f6rschmann, C. (2023), supplementary material for 'A database for the comparison of measured datasets of human voice directivity', Zenodo, doi:10.5281/zenodo.7834211, CC BY 4.0 (adapted into band-averaged directional patterns).",
+ "created_utc": "2026-10-12T01:11:22Z",
+ "revision": {
+  "revised_utc": "2026-10-14T09:22:38Z",
+  "tool": "website/atlas-tour/pipeline/foa_ir.py --sidecars-only",
+  "tool_sha256": "904afd0a813ab18dc38c6cbe085f2033511468a9eb2d8acf890a826d410a99b1",
+  "reason": "review atlas1r01 F13 (ADR 0015 D5): explicit pure-IR nulls added; F5 (ADR 0015 D4): the comparison set's expected_members and partial_reason added from the existing records",
+  "audit_rebind": "audit.record_sha256 rebound to the revised audit.json (foa_audit/2: the D5 nulls in every master entry, lead decision 2026-10-14); its previous value is previous_audit_record_sha256",
+  "previous_audit_record_sha256": "5a6c0e382ffa319c1fe8d7ab121aab56fe2333b991fc1c1999e79b87640f4657",
+  "previous_schema": "taormina.atlas_tour.foa_ir_sidecar/2",
+  "previous_sidecar_sha256": "2d339815f5e3331ff8439d29a472a9f66b07a498c1273a622cc5b32a42a4075b",
+  "wav": "not rewritten and not re-synthesised: its SHA-256 (field sha256) was verified against the manifest before this rewrite, and the tool re-verifies every WAV after it (run record)"
+ }
+}

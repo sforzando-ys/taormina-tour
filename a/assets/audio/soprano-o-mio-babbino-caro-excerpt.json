@@ -1,0 +1,86 @@
+{
+ "schema": "taormina.atlas_tour.dry_sample/2",
+ "file": "soprano-o-mio-babbino-caro-excerpt.wav",
+ "bytes": 1575692,
+ "sha256": "d6a26eba2d235f9acc7612863e35feebb6c2ecc7e85dab3bc4d64d6b52944757",
+ "format": {
+  "format_tag": "0x0001",
+  "format_name": "WAVE_FORMAT_PCM",
+  "channels": 1,
+  "sample_rate_hz": 48000,
+  "bits_per_sample": 24,
+  "data_bytes": 1575648,
+  "container": "RIFF/WAVE",
+  "subtype": "PCM_24",
+  "frames": 525216,
+  "duration_s": 10.942
+ },
+ "kind": "ANECHOIC RECORDING of a soprano (made by the dataset authors, not in the theatre). It is the dry input; any reverberant sound in the tour comes from the simulated responses, not from a recording in Taormina.",
+ "content": "Puccini, 'O mio babbino caro' from Gianni Schicchi, soprano; singer's name not supplied by the source; microphone position not documented by the source",
+ "source": {
+  "dataset": "Dario D'Orazio, University of Bologna, Anechoic recordings of Italian opera",
+  "doi": "10.5281/zenodo.3628247",
+  "record_url": "https://zenodo.org/records/3628247",
+  "licence": "CC BY 4.0",
+  "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+  "archive": "Puccini.7z (Zenodo record 3628247)",
+  "archive_sha256": "107cea5ab45f7da055fd98e59e1742cc69b762a3b85de1eefda5dccc3fc02540",
+  "archive_member": "Puccini/SOPRANO_COLORITURA/PUCCINI_SOPRANO_COLORITURA-006.wav",
+  "member_sha256": "a170ce7679b2e96f1817ef76ef06146d7ada2bbdcf8fab71e214b84f6a13f656",
+  "member_bytes": 30528104,
+  "decoded_copy_matches_member": true,
+  "decode_receipt_sha256": "f9ea46c7dbed54f49fbb524daa5ec5ac37172c0f0b5fb4b6f15411a5ce60796b",
+  "source_format": {
+   "sample_rate_hz": 48000,
+   "channels": 2,
+   "subtype": "PCM_24",
+   "frames": 5088000
+  },
+  "selection_record": "the project's D37 voice handoff (project record, not published)"
+ },
+ "creator_verification": {
+  "source": "https://zenodo.org/api/records/3628247",
+  "record_url": "https://zenodo.org/records/3628247",
+  "fetched_utc": "2026-10-11T10:28:54Z",
+  "record_sha256": "3648dbf38ddd772763e366cbf6cde7e0961df1d17cf0716e54e479ede15c4a6a",
+  "record_title": "Anechoic recordings of Italian opera",
+  "record_doi": "10.5281/zenodo.3628247",
+  "creators": [
+   "D'Orazio, Dario"
+  ],
+  "creator_affiliations": [
+   "University of Bologna"
+  ],
+  "licence_id": "cc-by-4.0",
+  "matches_credit": true,
+  "verified": true,
+  "checked_utc": "2026-10-12T01:11:05Z",
+  "method": "read-only GET of the Zenodo API record (by the project lead); creators from metadata.creators[].name, licence from metadata.license.id, compared with the credit and licence above; the fetched record is kept as a project record (not served)"
+ },
+ "extraction": {
+  "channel": "LEFT (channel 0) only, no downmix",
+  "frames_half_open": [
+   431904,
+   957120
+  ],
+  "sample_rate_hz": 48000,
+  "n_frames": 525216,
+  "processing": "none: no filter, no fade, no gain, no resampling, no dither",
+  "left_pcm24_packed_sha256": "4da2b9a4637fc39cb6c62b99dbf19e889c183314e32137e53eb6279a4aa6b5aa",
+  "left_pcm24_packed_sha256_expected_D37": "4da2b9a4637fc39cb6c62b99dbf19e889c183314e32137e53eb6279a4aa6b5aa",
+  "left_f8_normalised_sha256": "818354b2f2bbaf4804e68aff325d0b0a8ca2e6b6abd85a9380846cebd292cb52",
+  "left_f8_normalised_sha256_expected_D37": "818354b2f2bbaf4804e68aff325d0b0a8ca2e6b6abd85a9380846cebd292cb52",
+  "written_data_chunk_sha256": "4da2b9a4637fc39cb6c62b99dbf19e889c183314e32137e53eb6279a4aa6b5aa",
+  "written_data_chunk_equals_packed_excerpt": true,
+  "readback_max_abs_diff": 0.0,
+  "peak_abs": 0.2537335157394409,
+  "peak_dbfs": -11.912443257905139,
+  "rms_dbfs": -29.388852416947007
+ },
+ "credit": "Soprano: Dario D'Orazio, University of Bologna, 'Anechoic recordings of Italian opera', Zenodo, doi:10.5281/zenodo.3628247, CC BY 4.0. Puccini, 'O mio babbino caro' (Gianni Schicchi). Changes: left channel only, excerpt of 10.942 s.",
+ "licence_of_this_file": "CC BY 4.0 (derived audio of the CC BY 4.0 source)",
+ "verified": true,
+ "full_provenance": "kept as a project record (not served)",
+ "full_provenance_sha256": "f4fca40f44d69ebc5ca675b3043e5b06619a4c531af975b7e054ea30d0aee78e",
+ "created_utc": "2026-10-12T01:11:05Z"
+}

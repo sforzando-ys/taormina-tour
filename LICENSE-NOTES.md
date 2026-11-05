@@ -1,0 +1,25 @@
+# Licence notes
+
+Which licence covers which files of this site, and where each licence text is. The credits are in
+[`README.md`](README.md) and on [`about.html`](about.html).
+
+| Files | Licence | Licence text |
+|---|---|---|
+| Template files and the template's licence (12 files): `a/LICENSE`, `a/index.html`, `a/scripts/audio.js`, `a/scripts/main.js`, `a/scripts/map.js`, `a/sw.js`, `b/LICENSE`, `b/index.html`, `b/scripts/audio.js`, `b/scripts/main.js`, `b/scripts/map.js`, `b/sw.js` | CAVERN Template Non-Commercial License (Luna Leila Valentin and Celeste Betancur Gutierrez), in the text its authors wrote on 2026-10-29 (upstream commit `26089e24`): non-commercial use, publication and sharing, including tours hosted online, need no permission; the credit "CAVERN Template by Luna Leila Valentin and Celeste Betancur Gutierrez" with a link to <https://github.com/lunavalentin/CAVERN_Template> is required; the licence file stays with any copy of the code; commercial use needs the authors' prior written permission. In each building five of these six files are modified for this tour (all but `LICENSE`); the modified files stay under this licence. The template fixes proposed from this project were merged into the template upstream ([pull request #1](https://github.com/lunavalentin/CAVERN_Template/pull/1), 2026-10-29) | [`a/LICENSE`](a/LICENSE), [`b/LICENSE`](b/LICENSE) (the upstream text, unchanged; SHA-256 `5f154aa2187b174e...`) |
+| `a/JSAmbisonics/ambisonics.umd.js`, `b/JSAmbisonics/ambisonics.umd.js` and the notices `*/JSAmbisonics/THIRD_PARTY_NOTICES.txt` | BSD 3-Clause (JSAmbisonics 0.4.0, Archontis Politis and David Poirier-Quinot). The 22 other packages in the bundle are under the MIT or BSD 3-Clause licence, each with its full licence text in the notices file (open points: README). The template's LICENSE does not cover the bundle | [`a/JSAmbisonics/LICENSE`](a/JSAmbisonics/LICENSE), [`b/JSAmbisonics/LICENSE`](b/JSAmbisonics/LICENSE); [`a/JSAmbisonics/THIRD_PARTY_NOTICES.txt`](a/JSAmbisonics/THIRD_PARTY_NOTICES.txt), [`b/JSAmbisonics/THIRD_PARTY_NOTICES.txt`](b/JSAmbisonics/THIRD_PARTY_NOTICES.txt) |
+| First-order ambisonic impulse responses and their sidecars, `*/assets/irs/*.wav` and `*/assets/irs/*.json` (192 files) | Intended CC BY 4.0, **not yet declared**. The study declares its result-data licence at its first data release; until then no reuse licence is granted for them | Intended: <https://creativecommons.org/licenses/by/4.0/> |
+| Tour settings and seat table, `*/config.json`, `*/DataSet.csv` (4 files) | Project data, intended CC BY 4.0, not yet declared (as above) | Intended: <https://creativecommons.org/licenses/by/4.0/> |
+| Panoramic renders, `*/assets/images/*.jpg` (48 files) | CC BY-NC-SA 4.0. The terrain shown keeps its own upstream terms (Regione Siciliana, S.I.T.R.: [supply and download conditions](https://www.sitr.regione.sicilia.it/costi-di-cessione/), [portal terms](https://www.sitr.regione.sicilia.it/geoportale/it/Home/Terms); README credits); this licence neither replaces nor restricts them | <https://creativecommons.org/licenses/by-nc-sa/4.0/> |
+| Plan maps, `*/assets/map.svg` (2 files) | CC BY-NC-SA 4.0 | <https://creativecommons.org/licenses/by-nc-sa/4.0/> |
+| Soprano excerpt and its provenance, `*/assets/audio/soprano-o-mio-babbino-caro-excerpt.*` (4 files) | CC BY 4.0 (derived audio of Dario D'Orazio, *Anechoic recordings of Italian opera*, doi:10.5281/zenodo.3628247) | <https://creativecommons.org/licenses/by/4.0/> |
+| Samples chosen by the project's owner, `*/assets/audio/` `bacchae-1-63-excerpt.*`, `gladiator-fight-excerpt.*` (8 files) | used by the owner's decision (Yishan Shen, 2026-10-14); the project did not verify the source's terms and this is not a verified entitlement; the project grants no reuse rights for this excerpt | None (no reuse licence; each provenance file's `rights` gives the basis of use) |
+| `index.html`, `about.html`, `README.md`, `LICENSE-NOTES.md` | Project text, CC BY-NC-SA 4.0 | <https://creativecommons.org/licenses/by-nc-sa/4.0/> |
+| `.nojekyll`, `.gitattributes` | Hosting settings, no content | - |
+
+The voice-source directivity inside the voice responses is from Pörschmann, C. (2023),
+doi:10.5281/zenodo.7834211, CC BY 4.0. The georeference check uses © OpenStreetMap contributors
+(<https://www.openstreetmap.org/copyright>).
+
+The project's own generators are not part of this site; where the project publishes them, they are
+MIT-licensed. That grant does not cover the template's files or the patched versions of them: they
+stay under the template's licence. The site as a whole is non-commercial.

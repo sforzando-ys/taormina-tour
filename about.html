@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+<title>About - Teatro Antico di Taormina - simulated acoustics</title>
+<style>
+:root {
+  --bg: #141414;
+  --panel: #1f1f1f;
+  --line: rgba(255, 255, 255, 0.14);
+  --text: #f4f1ea;
+  --muted: #b9b4aa;
+  --accent: #e0c097;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.55;
+  padding: 0 16px;
+}
+main { max-width: 820px; margin: 0 auto; padding: 36px 0 48px; }
+h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); line-height: 1.2; margin: 0 0 6px; font-weight: 600; }
+h2 { font-size: 1.2rem; color: var(--accent); margin: 34px 0 10px; font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+p, li, dd { color: var(--text); }
+.muted { color: var(--muted); }
+.truth { border-left: 3px solid var(--accent); padding: 6px 0 6px 14px; margin: 16px 0; }
+blockquote { margin: 12px 0; padding: 8px 14px; background: var(--panel); border-radius: 10px; color: var(--text); }
+dl { margin: 0; }
+dt { font-weight: 600; margin-top: 12px; }
+dd { margin: 4px 0 0 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; }
+.table-wrap { overflow-x: auto; }
+a { color: var(--accent); overflow-wrap: anywhere; }
+code { font-size: 0.92em; overflow-wrap: anywhere; }
+nav { margin: 0 0 12px; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="index.html">Back to the start page</a></nav>
+<h1>About this tour</h1>
+<p class="muted">Teatro Antico di Taormina - simulated acoustics. A virtual acoustics tour of two computer models of the theatre: A, an intact Roman hypothesis, and B, a stylised model of the theatre in its present ruined state.</p>
+
+<h2>Simulated, not recorded</h2>
+<p class="truth">Simulated, not recorded. These responses are the predictions of an uncalibrated computational model (COMSOL Multiphysics® v. 6.4 ray acoustics; statistical phase synthesised from ray energy) of two states of the theatre: A, an intact Roman hypothesis, and B, the present ruin. This model has not been calibrated against measured impulse responses; it is what our model predicts, not what it sounded like.</p>
+<ul>
+  <li>The first-order ambisonic encoding is derived from ray arrival directions at a 1 m-radius collection cylinder around each seat.</li>
+  <li>On headphones you hear a simple left/right stereo decode of that first-order sound field (the template's default; no HRTF, so it is not binaural). It shows left-right direction as you turn, but not front-back or height: a sound ahead and a sound behind sound alike.</li>
+  <li>Reverberation-time metrics are unreliable outdoors.</li>
+  <li>No absolute level or speech-intelligibility claim is made. One common playback gain is used for every response in the tour, so level differences between seats, between A and B and between the empty and the full audience are kept, but the playback level is not the level in the theatre. The tour corrects for your device's audio sample rate, so the level does not depend on it.</li>
+  <li>Each response is one random realisation of the model's ray energy. A, B and the two audiences use independent realisations, so a small audible difference between them may be the random realisation rather than the acoustics.</li>
+  <li>Ray-count precision: direct sound is deterministic; reflected energy is sampled by a finite deterministic release lattice (400 000 rays per run). The study judges A/B and occupancy contrasts with matched-ray resampling, not by listening to two examples. Where few rays reached a seat, the sense of direction rests on few sampled arrivals.</li>
+  <li>The six octave bands (125 Hz to 4 kHz) are combined at the campaign's per-band basis powers, not at a talker's spectrum, so the tonal balance is not a measured voice spectrum.</li>
+  <li>The pictures are interpretive renders of a stylised model, not photographs and not a claimed historical appearance. B's ruined stage wall, including the size of its central gap, is a modelling assumption.</li>
+  <li>The terrain is a 2 m digital terrain model (DTM) crop (SITR/ICE).</li>
+</ul>
+<p>The study's own statement of the model's limits:</p>
+<blockquote>"This model has not been calibrated against measured impulse responses from the Teatro Antico di Taormina; no public per-position dataset exists. Materials are literature values for comparable Greco-Roman theatres, cited individually. Ray acoustics does not model edge diffraction; low-frequency results near the scaenae-frons gap and seat rows carry extra uncertainty. Results are a physically consistent reconstruction with stated sensitivity ranges — what our model predicts, not what it sounded like."</blockquote>
+
+<h2>Two words</h2>
+<p><strong>Statistical:</strong> the model predicts how much sound energy reaches a seat at each moment, from which direction and in each octave band, and the fine detail of the waveform is then filled in with random noise shaped to that energy.</p>
+<p><strong>Uncalibrated:</strong> this project has no measured impulse responses of this theatre to compare with (no public per-position dataset exists), so the model has not been adjusted to or checked against measurements.</p>
+
+<h2>What the sound menu means</h2>
+<p>At each seat the menu "Sound source" chooses which simulated response the sample is played through. Positions are in the model's own coordinates (metres, from the orchestra centre on the orchestra floor), as resolved by the project's source definitions and recorded in each response's provenance file (<code>source_position_m</code>).</p>
+<dl>
+<dt>Voice on the stage - empty seats</dt><dd>A talker&#x27;s mouth on the stage, 1.6 m above the stage deck, facing the audience (model position (0, 19.22, 3.9) m), with the directivity of a male speaking voice at normal effort (measured, sentence-averaged, adapted into band-averaged patterns). The seats are empty.</dd>
+<dt>Voice on the stage - full audience</dt><dd>The same voice source, with the seating modelled as occupied by an audience.</dd>
+</dl>
+<p>The study also simulated an all-round (omnidirectional) reference source at the stage centre and at the orchestra centre, and a raised-voice variant of the voice. They are not offered here. The reference source has a fixed power of 10 mW, about 27 dB above the voice source's reference power (project source definitions), and at the same seat it played 24 to 35 dB louder than the voice. Under one common playback gain the voice would then be close to silence, and switching between them would jump by tens of decibels. Within this tour, levels can be compared between seats, between A and B, and between the empty and the full audience.</p>
+
+<h2>What you hear played</h2>
+<ul>
+<li><strong>Soprano - O mio babbino caro (Puccini)</strong>: an anechoic (echo-free) recording of a soprano singing "O mio babbino caro" from Puccini's <em>Gianni Schicchi</em>, from Dario D'Orazio's <em>Anechoic recordings of Italian opera</em> (University of Bologna). An excerpt (10.942 s) of the left channel is used; it loops. The singer's name is not supplied by the source and the microphone position is not documented by the source. It is a real recording made outside the theatre; everything you hear of the theatre comes from the simulated response. The model's voice source radiates like a male speaking voice; the soprano recording is played through it as a dry signal, so the result does not simulate a singer's own directivity.</li>
+<li><strong>Bacchae - Ancient Greek reading</strong>: the first 24 seconds of a reading of lines 1-63 of Euripides&#x27; Bacchae, narrated in Ancient Attic Greek by Ioannis Stratakis (Podium-Arts, YouTube). It is a studio reading with its own room acoustics, not an anechoic recording; it is played through the simulated response as it is, so the recording room is heard as well. It makes no claim about how an ancient performance sounded. It plays at a fixed playback gain of -9.44 dB, with Ambisonic Mode on and off, so that its loudest predicted peak through any of the responses stays at the soprano&#x27;s.</li>
+<li><strong>Gladiator fight - sound effect</strong>: a produced sound-effect mix (&quot;Gladiator Fight Sound Effect&quot;, Sound Effect Database, YouTube). It carries its own ambience and is not an anechoic recording; it is played through the simulated response as it is, as one emitter at the stage source (the voice source&#x27;s position and directivity), so the separate sources of a fight are not placed in the theatre. It is a modern production, not a historical recording or reconstruction. It plays at a fixed playback gain of -2.13 dB, with Ambisonic Mode on and off, so that its loudest predicted peak through any of the responses stays at the soprano&#x27;s.</li>
+</ul>
+<p>With <strong>Ambisonic Mode (Wet)</strong> switched off you hear the dry recording alone, at one fixed playback level (+0.3 dB) chosen so that it sits near the median level of the simulated sound; the picture turns grey to show the change.</p>
+<p><strong>Mic</strong> plays your own microphone through the same responses: your voice is placed at the sound source on the stage, not at your seat, and the response includes the direct sound from the stage to the seat. It is not a reconstruction of how your own voice would sound from your seat. Use headphones, not loudspeakers, to avoid feedback. <strong>Upload</strong> plays a file you choose through the same responses. Both are processed in your browser; nothing is uploaded or recorded.</p>
+
+<h2>Seats and map</h2>
+<p>Each building has 24 listening seats. The dots on the map are these modelled seats, not every seat of the theatre. The same seat name is used in A and B; its position follows each model's seating, so it is not at exactly the same point in both. Left and right mean as seen by someone facing the stage; the map has the stage at the top and an arrow to true north (from the project's derived georeference, not a survey). In B the stage wall is drawn with its central gap (the model's assumed 13.97 m collapsed section).</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Seat</th><th>Plain name</th></tr></thead>
+<tbody>
+<tr><td>5I03</td><td>Lower tier row 3 - centre (wedge 5)</td></tr>
+<tr><td>5M10</td><td>Middle tier row 10 - centre (wedge 5)</td></tr>
+<tr><td>5S05</td><td>Upper tier row 5 - centre (wedge 5)</td></tr>
+<tr><td>9M10</td><td>Middle tier row 10 - far right (wedge 9)</td></tr>
+<tr><td>1M05</td><td>Middle tier row 5 - far left (wedge 1)</td></tr>
+<tr><td>1M10</td><td>Middle tier row 10 - far left (wedge 1)</td></tr>
+<tr><td>1S05</td><td>Upper tier row 5 - far left (wedge 1)</td></tr>
+<tr><td>2I12</td><td>Lower tier row 12 - left (wedge 2)</td></tr>
+<tr><td>2M15</td><td>Middle tier row 15 - left (wedge 2)</td></tr>
+<tr><td>3I03</td><td>Lower tier row 3 - left of centre (wedge 3)</td></tr>
+<tr><td>3M10</td><td>Middle tier row 10 - left of centre (wedge 3)</td></tr>
+<tr><td>3S03</td><td>Upper tier row 3 - left of centre (wedge 3)</td></tr>
+<tr><td>4I08</td><td>Lower tier row 8 - just left of centre (wedge 4)</td></tr>
+<tr><td>4M20</td><td>Middle tier row 20 - just left of centre (wedge 4)</td></tr>
+<tr><td>5I12</td><td>Lower tier row 12 - centre (wedge 5)</td></tr>
+<tr><td>6I08</td><td>Lower tier row 8 - just right of centre (wedge 6)</td></tr>
+<tr><td>6M20</td><td>Middle tier row 20 - just right of centre (wedge 6)</td></tr>
+<tr><td>7I03</td><td>Lower tier row 3 - right of centre (wedge 7)</td></tr>
+<tr><td>7M10</td><td>Middle tier row 10 - right of centre (wedge 7)</td></tr>
+<tr><td>7S03</td><td>Upper tier row 3 - right of centre (wedge 7)</td></tr>
+<tr><td>8I12</td><td>Lower tier row 12 - right (wedge 8)</td></tr>
+<tr><td>8M15</td><td>Middle tier row 15 - right (wedge 8)</td></tr>
+<tr><td>9M05</td><td>Middle tier row 5 - far right (wedge 9)</td></tr>
+<tr><td>9S05</td><td>Upper tier row 5 - far right (wedge 9)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Credits</h2>
+<ul>
+  <li>Taormina acoustics study: Yishan Shen (direction, method, groundwork and supervision; AI agents assisted).</li>
+  <li>Simulation: COMSOL Multiphysics® v. 6.4, COMSOL AB. This tour contains precomputed outputs only; it provides no COMSOL application, vendor software or model files.</li>
+  <li>Soprano recording: Dario D'Orazio, University of Bologna, <em>Anechoic recordings of Italian opera</em>, Zenodo, <a href="https://doi.org/10.5281/zenodo.3628247">doi:10.5281/zenodo.3628247</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; Puccini, "O mio babbino caro" from <em>Gianni Schicchi</em>, soprano track. Project changes: excerpt of the left channel. The dataset's creator (Dario D'Orazio) and licence (CC BY 4.0) were checked against the <a href="https://zenodo.org/records/3628247">Zenodo record</a> on 2026-10-11.</li>
+  <li>Bacchae - Ancient Greek reading: Euripides, Bacchae 1-63, narrated in Ancient Attic Greek by Ioannis Stratakis; Podium-Arts, YouTube, https://youtu.be/m0EkSYMQp2U. Changes: the first 24.0 s of the narration, both channels averaged.</li>
+  <li>Gladiator fight - sound effect: &quot;Gladiator Fight Sound Effect&quot;, Sound Effect Database, YouTube, https://youtu.be/wC8NPyIk2Os, (c) 2022. Changes: the whole clip, both channels averaged.</li>
+  <li>Voice directivity of the voice source: Pörschmann, C. (2023), supplementary material for "A database for the comparison of measured datasets of human voice directivity", Forum Acusticum 2023, Zenodo, <a href="https://doi.org/10.5281/zenodo.7834211">doi:10.5281/zenodo.7834211</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Adapted into band-averaged directional patterns for this model; it does not supply a speech spectrum or a historical speaker's level.</li>
+  <li>Terrain: Regione Siciliana — S.I.T.R., MDT 2 m, Volo ATA 2012–2013, produced by ICE–GEIE (Stereocarto SA and RPA s.r.l.). Dataset: <a href="https://www.sitr.regione.sicilia.it/geoportale/it/metadata/details/946">SITR metadata record 946</a>; download service: <a href="https://www.sitr.regione.sicilia.it/geoportale/it/metadata/details/947">SITR metadata record 947</a>. Acquired through the SITR WCS download service, clipped and sampled for the acoustic model, and cropped and simplified for display; it is visible in the panoramas, and the tour offers no terrain data file. Applicable terms: the <a href="https://www.sitr.regione.sicilia.it/costi-di-cessione/">SITR supply and download conditions</a> (their section on free non-commercial use of the OGC services, including WCS, subject to the dataset conditions, with default CC BY 4.0 download terms) and the <a href="https://www.sitr.regione.sicilia.it/geoportale/it/Home/Terms">SITR portal terms</a>; for context, the <a href="https://www.sitr.regione.sicilia.it/licenza-duso/">SITR general reuse policy</a>. Used for non-commercial research display on the basis of the project's reviewed reading of these terms. That reading is the project's interpretation, not a ruling by the Regione Siciliana and not an unrestricted licence for the dataset; the publication-consent and transfer warnings of SITR's earlier supply procedure remain a limitation of it. The terrain keeps its own upstream rights, separate from the licences of this tour, which neither replace nor restrict them. No endorsement by the Regione Siciliana is implied.</li>
+  <li>Georeference and footprint check: © OpenStreetMap contributors (<a href="https://www.openstreetmap.org/copyright">openstreetmap.org/copyright</a>).</li>
+  <li>Texture: "Plaster Stone Wall 02" by Charlotte Baglioni, Poly Haven (<a href="https://polyhaven.com/a/plaster_stone_wall_02">polyhaven.com</a>); appearance only.</li>
+  <li>Renders: Blender, Blender Foundation.</li>
+  <li>Tour template: CAVERN Template by Luna Leila Valentin and Celeste Betancur Gutierrez, <a href="https://github.com/lunavalentin/CAVERN_Template">https://github.com/lunavalentin/CAVERN_Template</a> (see "Tour template" below).</li>
+  <li>Spatial audio library: JSAmbisonics 0.4.0 by Archontis Politis and David Poirier-Quinot (BSD 3-Clause licence), as bundled with the template. The template's <code>LICENSE</code> does not cover it. Its licence text ships unchanged as <code>JSAmbisonics/LICENSE</code> in each building's folder. The bundle also contains the code of 22 other packages, and of two components inside one of them, each under the MIT or BSD 3-Clause licence; <code>JSAmbisonics/THIRD_PARTY_NOTICES.txt</code> gives each one's name, version, licence, copyright line and full licence text. Still open: for bit-twiddle, gl-matrix, babel-runtime, core-js 1.x and fractional-delay the bundle does not show the exact release, so the notices name the possible releases (their licence texts are the same, apart from the copyright years of babel-runtime 6.x); get-float-time-domain-data declares the MIT licence but publishes no copyright line.</li>
+</ul>
+
+<h2>Licences</h2>
+<ul>
+  <li>First-order ambisonic impulse responses and the result data: intended licence <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, not yet declared. The study declares its result-data licence at its first data release; until then no reuse licence is granted for them.</li>
+  <li>Panoramic renders and the plan map: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. The terrain shown in the renders keeps its own upstream terms (<a href="https://www.sitr.regione.sicilia.it/costi-di-cessione/">SITR supply and download conditions</a>, <a href="https://www.sitr.regione.sicilia.it/geoportale/it/Home/Terms">SITR portal terms</a>; see Credits); this licence neither replaces nor restricts them.</li>
+  <li>Derived audio of the soprano recording: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</li>
+  <li>Bacchae - Ancient Greek reading: used by the owner&#x27;s decision (Yishan Shen, 2026-10-14); the project did not verify the source&#x27;s terms and this is not a verified entitlement; the project grants no reuse rights for this excerpt.</li>
+  <li>Gladiator fight - sound effect: used by the owner&#x27;s decision (Yishan Shen, 2026-10-14); the project did not verify the source&#x27;s terms and this is not a verified entitlement; the project grants no reuse rights for this excerpt.</li>
+  <li>The tour template and its modified files: the CAVERN Template Non-Commercial License, in the text its authors wrote on 2026-10-29 (the <code>LICENSE</code> file, kept in each building's folder). Non-commercial use, publication and sharing of the template and of works built on it, including tours hosted online, need no permission from the authors; the licence asks for the credit "CAVERN Template by Luna Leila Valentin and Celeste Betancur Gutierrez" with a link to the template's repository, and for its licence file to stay with any copy of the code; commercial use needs the authors' prior written permission. It covers the template's code only: the content added to this tour keeps the licences listed here.</li>
+  <li>JSAmbisonics: BSD 3-Clause (licence text in <code>JSAmbisonics/LICENSE</code>). The other packages in its bundle: MIT or BSD 3-Clause, each with its full licence text in <code>JSAmbisonics/THIRD_PARTY_NOTICES.txt</code>; the open points are listed under Credits.</li>
+  <li>The project's own generators are not part of this folder; where the project publishes them, they are MIT-licensed. That grant does not cover the template's files, the patched versions of them or the patch files (which contain template lines): they stay under the template's licence.</li>
+  <li>The non-commercial condition applies to the tour template and its modified files and to the renders and map. It adds no restriction to material under CC BY 4.0, such as the soprano excerpt.</li>
+</ul>
+
+<h2>How to cite</h2>
+<p>Taormina acoustics study, directed by Yishan Shen.</p>
+<p>Attribute project-derived results to the Taormina acoustics study, Yishan Shen, with the data release identifier. Include the original speech-source credit when referring to a listening example. Keep the uncalibrated-model statement, and do not describe the listening examples as recordings from the theatre.</p>
+<p class="muted">A data release identifier has not been assigned yet.</p>
+<p>The study's website: <a href="https://yishanshen.com/acoustic/taormina/">https://yishanshen.com/acoustic/taormina/</a></p>
+
+<h2>Tour template</h2>
+<p>This tour is built with the CAVERN Template by Luna Leila Valentin and Celeste Betancur Gutierrez (<a href="https://github.com/lunavalentin/CAVERN_Template">github.com/lunavalentin/CAVERN_Template</a>, commit <code>f54c6afd</code>), used under its non-commercial licence, which asks for that credit with a link to the repository when the template or a work built on it is published, presented or shared. Fixes to the template made for this tour were contributed to it and merged into it on 2026-10-29 by Luna Leila Valentin, one of its authors (<a href="https://github.com/lunavalentin/CAVERN_Template/pull/1">pull request #1</a>). This tour changes five of its files with fourteen small patches (A to N):</p>
+<ul>
+  <li><code>scripts/map.js</code> (A): the map reads its bounds from the tour's settings instead of fixed values; seat dots and their touch areas are larger, and a seat is chosen when the click or tap is released on it.</li>
+  <li><code>scripts/main.js</code> (B, F, I, M): the seat and the chosen sound source can be given in the web address (<code>?loc=</code>, <code>?src=</code>), and the switch between A and B keeps both; the sound field turns with the picture in the measured direction (F), also while a reverberation rings out after Stop (M); the truth line and About link are filled in; a seat chosen during a seat change is not dropped; only neighbouring panoramas are preloaded; the arrow keys turn the view; a seat is shown and sounds only once its own panorama is on screen: if its picture cannot be loaded, nothing is shown or played and a message below Start/Stop says so until the picture is shown or another seat is chosen (at once, also when the choice waits for a seat change still in progress), and while that next seat's picture loads a short note there says so; a sound-source response that fails to load stops playback and shows a message there too, until it loads or another seat or sound source is chosen (the failure of a response the visitor has already moved on from, by choosing another seat or sound source, changes nothing: the newer choice plays as asked); a sound chosen in the sample menu or a file chosen in Upload while another plays replaces it; a microphone that cannot be started (none found, access refused, not available, or its sound cannot be connected), a sound that cannot be connected to the audio processing, and a Start that fails for another reason, is reported there too, without a dialog (the template's own dialogs remain for a browser without Web Audio and for an audio library that fails to load or to start); and the offline helper is registered even when the page has finished loading first (M).</li>
+  <li><code>index.html</code> (C, D, H): the menu label reads "Sound source" and a switch button between A and B is added (C); the 3-D library A-Frame is loaded without the <code>async</code> attribute, which failed on every fresh load in testing (D); a truth line visible at every screen width, a phone layout, Start Audio at the top of the panel, a note on the Mic mode, no CAVERN branding, the arrow-key camera movement and phone-tilt control turned off, and the audio library loaded after the page (H).</li>
+  <li><code>scripts/audio.js</code> (E, J, K, L): each of the four ambisonic channels is convolved separately (the stock single convolver treated the four channels as stereo and lost the direction) (E); the level is corrected for the device's sample rate, the dry (Ambisonic Mode off) path plays at a fixed level near the simulated sound, the sample is decoded once, a microphone whose sound cannot be connected is released at once, and a missing microphone is reported (J); a sample can carry its own fixed playback gain, applied once to the decoded sample so that Ambisonic Mode on and off stay comparable (K); Start begins at the chosen mode's level, so Ambisonic Mode plays no unconvolved sound before the response, only the newest response request is used (an older request's failure changes nothing), a response that fails to load stops playback instead of leaving the previous one playing, Stop ends the sound and lets the response's simulated reverberation ring out (as the template does since 2026-10-29), a change of seat or sound source and a failure fade out everything that sounds, a ringing reverberation included, in 25 ms, so no reverberation sounds under another seat or sound source or after a message that nothing is playing, and Ambisonic Mode changes only the sound that is playing, never a reverberation still ringing (L).</li>
+  <li><code>sw.js</code> (G, N): the offline helper fetches the tour's own files from the network first, so corrected pages reach returning visitors (G); it deletes only its own earlier caches, never those of other pages on the same site (N).</li>
+</ul>
+<p>The A and B pages load these outside services, as the template does: A-Frame 1.4.2 (aframe.io); p5.js 1.4.0 (cdnjs.cloudflare.com); Bootstrap 5.3.3 (cdn.jsdelivr.net); Bootstrap Icons 1.11.3 (cdn.jsdelivr.net); Google Fonts Archivo and Inter (fonts.googleapis.com, fonts.gstatic.com). Each of these hosts receives your IP address when the page loads. This start page and this About page load none.</p>
+</main>
+</body>
+</html>
