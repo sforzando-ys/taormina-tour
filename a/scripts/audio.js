@@ -27,13 +27,74 @@ class AudioEngine {
         this.irCache = new Map(); // Stores decoded AudioBuffers: url -> AudioBuffer
     }
 
+    // [taormina patch L] A context that does not run ('suspended'; on iOS and other WebKit browsers also 'interrupted', during a
+    // call or another app's sound) is asked to run; the promise is not waited for: WebKit keeps a resume() made outside a user
+    // gesture pending until the context runs, and a resume() during an interruption settles only when the interruption ends. A
+    // source connects only once the context runs (whenRunning), and the Start button's press asks inside its own gesture (prime).
+    askToRun(ctx) {
+        if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => { });
+    }
+
+    // [taormina patch L] Called synchronously by the Start button's press (main.js), before anything is awaited and before any
+    // early return of the press: asks a suspended or interrupted AudioContext to run inside the press's user gesture, which is
+    // what lets it run on WebKit (Safari, iOS), also when the press falls into a seat change or into the first response's load
+    // and the Start itself runs later, outside the press (settleNavigation). The context is normally made by the first response
+    // request at page load (loadIR, init), outside any gesture; a press that comes before it makes the context itself, here,
+    // and init() then completes the engine with that context (primedCtx). A constructor that throws ends the press's Start
+    // with a message (main.js).
+    prime() {
+        if (!this.ctx && !this.primedCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) this.primedCtx = new AudioContext();
+        }
+        this.askToRun(this.ctx || this.primedCtx);
+    }
+
+    // [taormina patch L] Playback starts only in a running AudioContext. A context made or asked to run in a press runs shortly
+    // after it; one that stays suspended or interrupted (WebKit: a resume() made outside a user gesture, or one that never settles;
+    // iOS: an interruption) is waited for at most 3 s (the wait ends at once when the context runs, by 'statechange'), then the
+    // Start fails with an Error named 'AudioSuspendedError', which main.js shows below the Start/Stop buttons with Start enabled
+    // (the next press asks the context to run again, prime). Returns false when the Start is or went stale: a newer Start, Stop, a
+    // seat or source change or a failed response ends the wait at once (endStartWaits), and the caller releases what it holds (a
+    // microphone stream) in the same task. A true result holds only when it is returned: a Stop, a source change or a newer Start
+    // may run before the caller resumes, so each caller checks its own generation again right after its await, before it uses
+    // anything.
+    async whenRunning(startGen) {
+        if (startGen !== this.startGeneration) return false;
+        const ctx = this.ctx;
+        if (ctx.state !== 'running') {
+            if (!this.startWaits) this.startWaits = new Set();
+            await new Promise(resolve => {
+                const done = () => {
+                    ctx.removeEventListener('statechange', onState);
+                    clearTimeout(timer);
+                    this.startWaits.delete(done);
+                    resolve();
+                };
+                const onState = () => { if (ctx.state === 'running') done(); };
+                ctx.addEventListener('statechange', onState);
+                const timer = setTimeout(done, 3000);
+                this.startWaits.add(done);
+            });
+        }
+        if (startGen !== this.startGeneration) return false;
+        if (ctx.state === 'running') return true;
+        const err = new Error('The browser has not let the sound start yet. Press Start Audio to play.');
+        err.name = 'AudioSuspendedError';
+        throw err;
+    }
+
+    // [taormina patch L] ends every readiness wait at once (beginStart, cancelStart: each makes every waiting Start stale), so
+    // each waiting Start returns false and releases what it holds
+    endStartWaits() {
+        if (this.startWaits) [...this.startWaits].forEach(done => done());
+    }
+
+    // [taormina patch L] with an engine, a context that does not run is asked to run and not waited for (askToRun): no call
+    // waits for a resume() that the browser may keep pending; playback waits, bounded, in whenRunning()
     async init() {
         if (this.ctx) {
-            if (this.ctx.state === 'suspended') {
-                console.log('🔇 AudioContext suspended, resuming...');
-                await this.ctx.resume();
-                console.log(`▶️ AudioContext resumed. State: ${this.ctx.state}`);
-            }
+            this.askToRun(this.ctx);
             return;
         }
 
@@ -46,7 +107,10 @@ class AudioEngine {
             return;
         }
 
-        this.ctx = new AudioContext();
+        // [taormina patch L] the context that a Start's press made before the engine existed (prime), if any: that press has
+        // already asked it to run inside its user gesture
+        this.ctx = this.primedCtx || new AudioContext();
+        this.primedCtx = null;
         console.log(`🔊 AudioContext created. State: ${this.ctx.state}`);
 
         // Initialize JSAmbisonics
@@ -83,7 +147,7 @@ class AudioEngine {
         // [taormina patch L] The shared dry and wet gains stay at 1: Ambisonic Mode is applied by each source's own mode
         // gains, made at the requested state before the source connects (connectSourceGraph), so the first wet Start plays
         // no unconvolved sound (a ramp from a new GainNode's value 1 once let it through) and a switch never reaches a
-        // source that still fades or rings out (round 10, R9R1VC-1)
+        // source that still fades or rings out
         this.wetGainNode.gain.value = 1;
         this.dryGainNode.gain.value = 1;
 
@@ -104,8 +168,8 @@ class AudioEngine {
         this.updateDryWet();
     }
 
-    // [taormina patch L] A switch acts on the playing source's own mode gains only (connectSourceGraph; round 10, R9R1VC-1, as
-    // the template since Codex review r04c): a source that still fades, or whose reverberation rings out after Stop (a
+    // [taormina patch L] A switch acts on the playing source's own mode gains only (connectSourceGraph; the template does the
+    // same since its own per-source mode gains): a source that still fades, or whose reverberation rings out after Stop (a
     // release, see stopSource), keeps its own, so the switch never steps, cuts or reshapes it. With no source nothing is
     // set; the next source starts at the requested state.
     updateDryWet() {
@@ -172,7 +236,7 @@ class AudioEngine {
     async loadIR(url, rotationDegrees) {
         const gen = this.irGeneration = (this.irGeneration || 0) + 1;
         // [taormina patch L] a rejected initialisation fails this request only while it is the newest: an obsolete
-        // request's rejection changes nothing, as after its other waits (round 9b, Codex review r04 F1)
+        // request's rejection changes nothing, as after its other waits
         if (!this.ctx) await this.init().catch((e) => { if (gen === this.irGeneration) throw e; });
         if (gen !== this.irGeneration) return false;
         if (!url) return this.failIR(url, new Error('no impulse response for this seat and source'));
@@ -230,14 +294,17 @@ class AudioEngine {
 
     // [taormina patch L] Start request generation. playSample, playFile and startMic each begin one;
     // stop() and a failed response cancel it. A Start whose generation is no longer the newest is
-    // stale: it never connects its source.
+    // stale: it never connects its source. Both end every readiness wait at once (endStartWaits), so a
+    // stale Start waiting for a running context releases what it holds without waiting.
     beginStart() {
         this.startGeneration = (this.startGeneration || 0) + 1;
+        this.endStartWaits();
         return this.startGeneration;
     }
 
     cancelStart() {
         this.startGeneration = (this.startGeneration || 0) + 1;
+        this.endStartWaits();
     }
 
     // [taormina patch L] a source connects only with the response of the newest IR request
@@ -249,8 +316,7 @@ class AudioEngine {
 
     // [taormina patch L] connect and start a loaded buffer; an error of the audio graph disconnects the source
     // (stopSource) and throws an Error named 'AudioGraphError' (sampleName, cause) for main.js to show: it is not
-    // a sound that could not be loaded (round 9 repair, R9VC-7; the microphone's graph error is patch J's
-    // MicStartError 'audio-graph')
+    // a sound that could not be loaded (the microphone's graph error is patch J's MicStartError 'audio-graph')
     playOrGraphError(buffer, name) {
         try {
             this.playBuffer(buffer);
@@ -305,10 +371,12 @@ class AudioEngine {
         // false without touching the playing source or connecting its own. Returns true once playing.
         const startGen = this.beginStart();
         if (!this.ctx) await this.init();
-
-        // Ensure context is running (it might be suspended if play was auto-triggered inside code)
-        if (this.ctx.state === 'suspended') await this.ctx.resume();
         if (startGen !== this.startGeneration) return false;
+
+        // [taormina patch L] a context that does not run is asked to run, not waited for: the source connects only once it
+        // runs (whenRunning, below), never after a resume() that the browser keeps pending (WebKit, outside a user gesture)
+        this.askToRun(this.ctx);
+        let loaded = null; // this Start's sample once loaded; named currentAudioBuffer only when it is about to play
 
         this.stopSource(); // Stop previous source
 
@@ -331,13 +399,13 @@ class AudioEngine {
             }
 
             // [taormina patch L] the sample may have arrived after the Start went stale: never connect it, and
-            // leave currentAudioBuffer naming the sample that plays (round 9 repair, R9VP-1)
+            // leave currentAudioBuffer naming the sample that plays
             if (startGen !== this.startGeneration) {
                 console.log(`↩️ Start superseded, sample not connected: ${url.split('/').pop()}`);
                 return false;
             }
             if (!this.irReadyForStart()) return false;
-            this.currentAudioBuffer = buffer;
+            loaded = buffer;
         } catch (e) {
             // [taormina patch L] no alert(): a stale Start's failure changes nothing; otherwise main.js
             // (patch M) shows the cause below the Start/Stop buttons
@@ -348,8 +416,21 @@ class AudioEngine {
             err.sampleName = url.split('/').pop();
             throw err;
         }
+        // [taormina patch L] playback is due: only in a running context (whenRunning, at most 3 s), never after a resume()
+        // that only a user gesture could complete. The generation is checked again right after the wait (also when it
+        // rejects): a Stop, a seat or source change or a newer Start that ran meanwhile makes this Start stale, and its
+        // buffer is never connected or named
+        let running;
+        try {
+            running = await this.whenRunning(startGen);
+        } catch (e) {
+            if (startGen !== this.startGeneration) return false; // stale: no message
+            throw e;
+        }
+        if (!running || startGen !== this.startGeneration || !this.irReadyForStart()) return false;
+        this.currentAudioBuffer = loaded;
         // [taormina patch L] the sample is loaded; its audio graph is connected after the load, and an error
-        // there is reported as what it is (round 9 repair, R9VC-7)
+        // there is reported as what it is
         this.playOrGraphError(this.currentAudioBuffer, url.split('/').pop());
         console.log(`✅ Sample playing: ${url.split('/').pop()}`);
         return true;
@@ -362,6 +443,7 @@ class AudioEngine {
         const startGen = this.beginStart();
         if (!this.ctx) await this.init();
         if (startGen !== this.startGeneration) return false;
+        this.askToRun(this.ctx); // [taormina patch L] asked, not waited for (see playSample)
         this.stopSource();
 
         let buffer;
@@ -376,8 +458,17 @@ class AudioEngine {
             throw err;
         }
         if (startGen !== this.startGeneration || !this.irReadyForStart()) return false;
+        // [taormina patch L] and again right after the wait for a running context, as in playSample
+        let running;
+        try {
+            running = await this.whenRunning(startGen);
+        } catch (e) {
+            if (startGen !== this.startGeneration) return false; // stale: no message
+            throw e;
+        }
+        if (!running || startGen !== this.startGeneration || !this.irReadyForStart()) return false;
         this.currentAudioBuffer = buffer;
-        // [taormina patch L] an error of the audio graph is reported as such (round 9 repair, R9VC-7)
+        // [taormina patch L] an error of the audio graph is reported as such
         this.playOrGraphError(this.currentAudioBuffer, fileBlob && fileBlob.name ? fileBlob.name : 'file');
         return true;
     }
@@ -386,6 +477,7 @@ class AudioEngine {
         const startGen = this.beginStart(); // [taormina patch L] see playSample
         if (!this.ctx) await this.init();
         if (startGen !== this.startGeneration) return false;
+        this.askToRun(this.ctx); // [taormina patch L] asked, not waited for (see playSample)
         this.stopSource();
 
         console.log('🎤 Requesting microphone access...');
@@ -412,6 +504,22 @@ class AudioEngine {
         // [taormina patch L] a Start that went stale while access was asked for: release this
         // stream at once and never connect it (no orphan microphone stream)
         if (startGen !== this.startGeneration || !this.irReadyForStart()) {
+            stream.getTracks().forEach(track => track.stop());
+            return false;
+        }
+        // [taormina patch L] then the stream waits for a running context (whenRunning, at most 3 s). It stays this Start's
+        // own: a newer Start, Stop or a seat or source change ends the wait at once and the stream is released in the same
+        // task, as when the context does not run within the bound; it is never connected then. The generation is checked
+        // again right after the wait, before the stream is used
+        let running;
+        try {
+            running = await this.whenRunning(startGen);
+        } catch (e) {
+            stream.getTracks().forEach(track => track.stop());
+            if (startGen !== this.startGeneration) return false; // stale: no message
+            throw e;
+        }
+        if (!running || startGen !== this.startGeneration || !this.irReadyForStart()) {
             stream.getTracks().forEach(track => track.stop());
             return false;
         }
@@ -461,11 +569,11 @@ class AudioEngine {
             this.convolverNode = null;
         }
 
-        // [taormina patch L] this source's own gains, in front of the shared dry and wet gains (round 9 repair 1; round 10,
-        // R9R1VC-1): per path a mode gain, made at the requested state (a ramp left from an earlier switch or source cannot
-        // shape its first frames; a switch ramps only the playing source's, updateDryWet), then a release gain, which
-        // stopSource fades. A source that starts, or a switch made, while an earlier source still fades or rings out leaves
-        // that source's gains alone: its release is not stepped, cut or restored
+        // [taormina patch L] this source's own gains, in front of the shared dry and wet gains: per path a mode gain, made at
+        // the requested state (a ramp left from an earlier switch or source cannot shape its first frames; a switch ramps
+        // only the playing source's, updateDryWet), then a release gain, which stopSource fades. A source that starts, or a
+        // switch made, while an earlier source still fades or rings out leaves that source's gains alone: its release is not
+        // stepped, cut or restored
         [this.voiceDryMode, this.voiceWetMode, this.voiceDry, this.voiceWet].forEach(node => { if (node) node.disconnect(); });
         const g = this.dryWetTargets();
         this.voiceDryMode = this.ctx.createGain();
@@ -532,7 +640,7 @@ class AudioEngine {
         }
 
         // Connect to Rotator (Input of Wet Chain), through the playing source's own wet gains
-        // ([taormina patch L] connectSourceGraph; round 9 repair 1, round 10)
+        // ([taormina patch L] connectSourceGraph)
         this.foaOut.connect(this.voiceWetMode || this.rotator.in);
         if (this.sourceNode) {
             this.sourceNode.connect(this.convolverNode);
@@ -540,14 +648,14 @@ class AudioEngine {
         console.log(`🔊 Convolver setup complete (IR channels: ${this.currentIrBuffer.numberOfChannels})`);
     }
 
-    // [taormina patch L] The end of what sounds (round 9 repair 1; Codex review r04b F4, R9VI-1, R9VC-1; round 10): stop() (Stop,
-    // a seat or source change's hold, a failed response or picture, a failed Start) and every new source (stopSource) release
+    // [taormina patch L] The end of what sounds: stop() (Stop, a seat or source change's hold, a failed response or picture, a
+    // failed Start) and every new source (stopSource) release
     // the source. Its own dry and wet release gains (connectSourceGraph) fall to 0 in a 25 ms linear ramp and a buffer source
     // stops at the end of the ramp; once the AudioContext has rendered the ramp (its clock, not a wall-clock delay) a
     // microphone's tracks are stopped, and the source, its convolvers and its gains are disconnected (finishRelease), so no
     // old tail can sound later; the next source builds new convolvers. The engine reads as stopped at once (no source, no
-    // stream, isPlaying false). With ringOut (the visitor's Stop only; round 10, as the template since 2026-10-29, upstream
-    // commit 8d6301a594) only the dry path and the convolvers' input fade: the reverberation already in the four convolvers
+    // stream, isPlaying false). With ringOut (the visitor's Stop only; as the template since its commit 8d6301a594 of
+    // 2026-10-29) only the dry path and the convolvers' input fade: the reverberation already in the four convolvers
     // rings out for the response's length, as it would in the room, and the release ends after it; the microphone is still
     // released at the end of the input fade. A later stop() without ringOut fades such a tail in 25 ms (cutRingingTails); a
     // new source leaves it ringing.
@@ -613,8 +721,8 @@ class AudioEngine {
         release.timer = setTimeout(release.check, 30);
     }
 
-    // [taormina patch L] a reverberation tail left ringing by Stop fades in 25 ms and its release then ends (round 10, as
-    // upstream commit 8d6301a594): stop() without ringOut calls it, so no tail sounds under another seat or source, after a
+    // [taormina patch L] a reverberation tail left ringing by Stop fades in 25 ms and its release then ends (as the template's
+    // commit 8d6301a594): stop() without ringOut calls it, so no tail sounds under another seat or source, after a
     // failure or after a message that says nothing is playing. Returns the number of tails faded.
     cutRingingTails() {
         if (!this.releases || !this.ctx) return 0;
@@ -635,7 +743,7 @@ class AudioEngine {
     }
 
     // [taormina patch L] true while a reverberation tail left ringing by Stop still sounds (not cut and not ended): it
-    // passes through the shared rotator, so main.js keeps turning the sound field with the view (round 10 repair 1, R10VC-5)
+    // passes through the shared rotator, so main.js keeps turning the sound field with the view
     hasRingingTail() {
         if (!this.releases) return false;
         for (const release of this.releases) {
@@ -645,7 +753,7 @@ class AudioEngine {
     }
 
     // [taormina patch L] the end of a release: the stopped source, its convolvers and its gains are disconnected,
-    // their tail with them, and a microphone's tracks are stopped if the release has not stopped them yet (round 9 repair 1)
+    // their tail with them, and a microphone's tracks are stopped if the release has not stopped them yet
     finishRelease(release) {
         if (!this.releases || !this.releases.delete(release)) return;
         clearTimeout(release.timer);
@@ -664,7 +772,7 @@ class AudioEngine {
     // [taormina patch L] ringOut: the visitor's Stop (see stopSource); without it every tail still ringing fades first
     stop({ ringOut = false } = {}) {
         this.cancelStart(); // [taormina patch L] a Start in flight is cancelled too: its source never connects
-        if (!ringOut) this.cutRingingTails(); // [taormina patch L] round 10
+        if (!ringOut) this.cutRingingTails(); // [taormina patch L] a tail left ringing by Stop fades too
         this.stopSource({ ringOut });
     }
 

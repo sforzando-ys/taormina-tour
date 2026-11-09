@@ -489,14 +489,14 @@ function setupListeners() {
     // [taormina patch M] a sound chosen in the sample menu while the visitor wants sound (playing, or a Start in
     // flight) holds what plays and restarts once with the chosen sound (settleNavigation; during a seat or source
     // change, that change's own restart plays it); the stock menu had no change handler, so the old sound kept
-    // playing under the new name (round 9 repair 1, R9VP-2)
+    // playing under the new name
     ui.sampleSelect.onchange = () => {
         if (appState.currentSourceType !== 'sample') return;
         if (holdForResponse()) settleNavigation();
     };
 
     // [taormina patch M] a file chosen in Upload while the visitor wants sound restarts once with that file, as the sample menu
-    // (round 10, R9R1VP-1; the stock file input had no change handler, so the old file kept playing under "Playing...")
+    // (the stock file input had no change handler, so the old file kept playing under "Playing...")
     ui.fileInput.onchange = () => {
         if (appState.currentSourceType !== 'upload') return;
         if (holdForResponse()) settleNavigation();
@@ -508,7 +508,7 @@ function setupListeners() {
             if (e.target.checked) {
                 // [taormina patch M] a new source type: stop what plays or is starting before the label changes
                 // (handleStop(true): audio.stop without ring-out, so a tail left ringing by Stop fades too); a
-                // microphone's tracks end with the 25 ms release, after the label changes (round 10, R9R1VC-2); an
+                // microphone's tracks end with the 25 ms release, after the label changes; an
                 // explicit Start resumes
                 const type = e.target.id.replace('src-', '');
                 if (type !== appState.currentSourceType) handleStop(true);
@@ -519,7 +519,23 @@ function setupListeners() {
     });
 
     // Audio Transport
-    ui.playBtn.onclick = handlePlay;
+    // [taormina patch M] the press asks a suspended or interrupted AudioContext to run inside its own user gesture (patch L's
+    // prime), before anything is awaited and before handlePlay's early returns: a Start pressed during a seat change or the first
+    // response's load, or on a seat whose picture failed, runs later, outside the press (settleNavigation), and WebKit (Safari,
+    // iOS) lets a context run only after a resume() made in a gesture. Should the press itself throw, this Start ends with a
+    // message and Start enabled.
+    ui.playBtn.onclick = () => {
+        try {
+            audio.prime();
+        } catch (e) {
+            console.error('❌ The AudioContext could not be asked to run:', e);
+            showAudioMessage(`The sound could not be started (${(e && e.name) || 'Error'}), so nothing is playing. ` +
+                'Press Start Audio to try again.');
+            resetTransport();
+            return;
+        }
+        return handlePlay();
+    };
     ui.stopBtn.onclick = handleStop;
 
     // Wet/Dry Toggle
@@ -693,7 +709,7 @@ function lookControlsNow(camera) {
 
 // [taormina patch M] Resolves the camera's look-controls once it has initialised (the camera's
 // componentinitialized or loaded event, or a 50 ms check), or null after ms. On a freshly opened page the
-// first seat's panorama can be ready before A-Frame has initialised the camera (repair r6-2, R6VC-R1-1:
+// first seat's panorama can be ready before A-Frame has initialised the camera (measured:
 // with the texture made from the preloaded image the start yaw stayed 0 in 15 of 15 fresh loads).
 function lookControlsReady(camera, ms) {
     const now = lookControlsNow(camera);
@@ -767,7 +783,7 @@ function skyImageState(el, loc) {
 // from the loaded image itself (material src = the <img> element), so A-Frame makes no request of its
 // own (no HEAD check, no second GET) and keeps no texture promise for a URL that can stay unsettled
 // after a failed GET (A-Frame 1.4.2 caches one per src and its fetch-error callback only logs; clearing
-// and setting the src attribute again in one task made no new request, Codex review r06 R6VC-1). Resolves
+// and setting the src attribute again in one task made no new request). Resolves
 // null on a failed preload (imageLoad gives null), a failed texture, or 30 s after the image loaded
 // (lead's bound, 2026-10-22; the preload itself stays unbounded, as before). No event or timer alone
 // means ready. superseded(): a newer seat was chosen meanwhile; the wait then ends at once (null), also
@@ -842,16 +858,16 @@ async function performLocationChange(index, again) { /* [taormina patch M] again
         appState.pendingNavIndex = index;
         holdForResponse();
         // [taormina patch M] the seat being loaded is chosen again while its response failure is held (it failed after another
-        // seat had been queued, see loadCurrentIR): that failure now applies, nothing plays (round 9b, Codex review r04 F2)
+        // seat had been queued, see loadCurrentIR): that failure now applies, nothing plays
         if (index === appState.currentLocIndex && navState.irHeld) {
             navState.irHeld = false;
             transportState.want = false;
             transportState.starting = 0;
             resetTransport();
         }
-        // [taormina patch M] the loading status names the newest chosen seat (round 8 repair 1); a seat other than the one
+        // [taormina patch M] the loading status names the newest chosen seat; a seat other than the one
         // loading, queued while a picture or response failure message of the loading seat stands, replaces that message at
-        // once with the status naming the queued seat (showNavMessage; round 9, R8R1VP-1)
+        // once with the status naming the queued seat (showNavMessage)
         if (navState.seatLoading || (index !== appState.currentLocIndex && (navState.pictureMessage || navState.irMessage))) {
             navState.seatLoading = `Loading the picture for ${appState.locations[index].Loc_name} ...`;
         }
@@ -862,11 +878,11 @@ async function performLocationChange(index, again) { /* [taormina patch M] again
     appState.isNavigating = true;
     navState.panoramaShown = false; // [taormina patch M] until this seat's own panorama is displayed
     // [taormina patch M] a picture failure message belongs to its seat: choosing another seat clears it at once; that
-    // seat's own response and panorama then write the message (round 8, R7VC-7); while it loads no sky is shown, so a
-    // neutral status names the seat being loaded until its panorama is shown or fails (round 8 repair 1, R8VP-2)
+    // seat's own response and panorama then write the message; while it loads no sky is shown, so a
+    // neutral status names the seat being loaded until its panorama is shown or fails
     if (index !== appState.currentLocIndex && (navState.pictureMessage || navState.seatLoading)) {
         navState.pictureMessage = false;
-        navState.irMessage = false; // that seat's response failure too (requestIR below; R8VC-3)
+        navState.irMessage = false; // that seat's response failure too (requestIR below)
         navState.seatLoading = `Loading the picture for ${appState.locations[index].Loc_name} ...`;
         showNavMessage();
     }
@@ -927,7 +943,7 @@ async function performLocationChange(index, again) { /* [taormina patch M] again
         // Reset A-Frame look-controls internal state if available
         // [taormina patch M] on a freshly opened page this seat's panorama (made from the preloaded image) can
         // be ready before A-Frame has initialised the camera's look-controls; the start view was then skipped
-        // and faced yaw 0 (repair r6-2, R6VC-R1-1). Wait for look-controls (lookControlsReady) before the
+        // and faced yaw 0. Wait for look-controls (lookControlsReady) before the
         // reveal; if it is still absent after the bound, apply the start view when it initialises, never skip it
         let lookControls = lookControlsNow(ui.camera);
         if (!lookControls) lookControls = await lookControlsReady(ui.camera, 10000);
@@ -945,7 +961,7 @@ async function performLocationChange(index, again) { /* [taormina patch M] again
     // [taormina patch M] reveal and name the seat only with its own panorama; a failure hides both skies
     // (no other seat's picture under this seat's name), stops and says so
     // [taormina patch M] a seat queued meanwhile, also during the look-controls wait above, supersedes this one:
-    // checked again here (round 7, R6VC-R2-1)
+    // checked again here
     const supersededNow = superseded || newerSeat();
     if (shown && !supersededNow) {
         revealSkybox();
@@ -1009,7 +1025,7 @@ window.updateImage = () => {
 // flight cancelled, previous response cleared) ends in the stopped state, shows a message below the
 // Start/Stop buttons and rethrows. A seat without an IR for the chosen source is a failure too, never
 // a silent keep of the old one. A failure of a replaced request changes nothing (false); one of the seat being
-// loaded while another seat is queued is held: the wish to listen stays (round 9b).
+// loaded while another seat is queued is held: the wish to listen stays.
 async function loadCurrentIR() {
     const loc = appState.locations[appState.currentLocIndex];
     if (!loc) return null;
@@ -1017,23 +1033,23 @@ async function loadCurrentIR() {
     const irData = loc.IRs ? loc.IRs[appState.currentIrIndex] : null;
     const irsPath = config?.data?.irsPath || 'assets/irs/';
     const url = irData ? `${irsPath}${irData.file}` : null;
-    // [taormina patch M] this request's generation: patch L numbers every loadIR call when it is made (round 9b, F1)
+    // [taormina patch M] this request's generation: patch L numbers every loadIR call when it is made
     const request = audio.loadIR(url, irData ? irData.rotation : 0);
     const requestGen = audio.irGeneration;
     try {
         const applied = await request;
-        if (applied) { // [taormina patch M] a picture failure message stays until the panorama is shown (round 7, VP6-3)
+        if (applied) { // [taormina patch M] a picture failure message stays until the panorama is shown
             navState.irMessage = false;
-            showNavMessage(); // [taormina patch M] and a seat's loading status stays (round 8 repair 1)
+            showNavMessage(); // [taormina patch M] and a seat's loading status stays
         }
         return applied;
     } catch (e) {
         // [taormina patch M] a request that a newer one has replaced (also by a late rejection of the initialisation it
-        // waited for) changes nothing: not the buttons, the wish to listen or the message (round 9b, Codex review r04 F1)
+        // waited for) changes nothing: not the buttons, the wish to listen or the message
         if (requestGen !== audio.irGeneration) return false;
         // [taormina patch M] another seat is queued: the visitor has left this seat, so its failure neither ends the wish to
         // listen nor shows under the queued seat (showNavMessage hides it); it is held and applies only if this seat is chosen
-        // again (performLocationChange's queue branch); the queued seat's request clears it (round 9b, Codex review r04 F2)
+        // again (performLocationChange's queue branch); the queued seat's request clears it
         const queued = appState.pendingNavIndex;
         navState.irHeld = queued !== undefined && queued !== null && queued !== appState.currentLocIndex;
         if (!navState.irHeld) {
@@ -1044,7 +1060,7 @@ async function loadCurrentIR() {
         const what = irData ? (irData.label || irData.file) : 'the chosen sound source';
         navState.irMessage = `The acoustic response for ${loc.Loc_name} (${what}) could not be loaded, so nothing is playing. ` +
             'Press Start Audio to try again, or choose another seat or sound source.';
-        // [taormina patch M] while a picture failure stands, both reasons are shown (round 7, VP6-3)
+        // [taormina patch M] while a picture failure stands, both reasons are shown
         showNavMessage();
         throw e;
     }
@@ -1058,19 +1074,18 @@ const transportState = { want: false, starting: 0, last: 0 };
 // [taormina patch M] Navigation state: irGen counts the IR requests of seat and source changes,
 // irSettled is the newest one that has finished (applied or failed); panoramaShown: the current seat's
 // own panorama is displayed (false during a seat change and after its picture failed); pictureMessage:
-// the picture failure message while it stands (until the seat's panorama is shown or another seat is chosen,
-// round 8), else false; irMessage
-// (round 7, VP6-3): the newest response request's failure message, else false (hidden when a newer request starts,
-// round 8 repair 1); seatLoading (round 8 repair 1, R8VP-2): the neutral status of a seat chosen after a picture
-// failure, until its panorama is shown or fails, else false; irHeld (round 9b, F2): the response failure of the seat being
+// the picture failure message while it stands (until the seat's panorama is shown, another seat is chosen or Start
+// tries the seat again), else false; irMessage: the newest response request's failure message, else false (hidden when a
+// newer request starts); seatLoading: the neutral status of a seat chosen after a picture failure, or of the picture-failure
+// retry, until its panorama is shown or fails, else false; irHeld: the response failure of the seat being
 // loaded arrived while another seat was queued (the stop is held), else false.
 const navState = { irGen: 0, irSettled: 0, panoramaShown: false, pictureMessage: false, irMessage: false, seatLoading: false, irHeld: false };
 
-// [taormina patch M] the message below the Start/Stop buttons from the navigation state (round 8 repair 1): the
-// standing picture and response failure messages, both when both stand (round 7, VP6-3); else the neutral status
-// of a seat loading after a picture failure (R8VP-2); else none. While a seat other than the one loading is queued, the
+// [taormina patch M] the message below the Start/Stop buttons from the navigation state: the standing picture and
+// response failure messages, both when both stand; else the neutral status of a seat loading after a picture
+// failure; else none. While a seat other than the one loading is queued, the
 // queued seat is the chosen one: the loading seat's picture and response failures are not shown under its name (the
-// queued seat's change clears them; if the loading seat is chosen again they show again; round 9, R8R1VP-1)
+// queued seat's change clears them; if the loading seat is chosen again they show again)
 function showNavMessage() {
     const queued = appState.pendingNavIndex;
     const otherQueued = queued !== undefined && queued !== null && queued !== appState.currentLocIndex;
@@ -1094,14 +1109,14 @@ function showPanoramaFailure(loc) {
     resetTransport();
     navState.pictureMessage = `The picture for ${loc.Loc_name} could not be loaded, so nothing is shown or playing. ` +
         'Press Start Audio to try again, or choose another seat.';
-    navState.seatLoading = false; // [taormina patch M] this seat's own outcome replaces its loading status (round 8 repair 1)
-    // [taormina patch M] this seat's response failure, if any, stays shown with it (round 7, VP6-3)
+    navState.seatLoading = false; // [taormina patch M] this seat's own outcome replaces its loading status
+    // [taormina patch M] this seat's response failure, if any, stays shown with it
     showNavMessage();
 }
 
 // [taormina patch M] a seat or source change: cancel what plays or is starting (audio.stop makes a Start in
 // flight stale, patch L) and fade a reverberation tail still ringing after Stop (audio.stop without ring-out:
-// patch L's cutRingingTails, round 10), also when no sound is wanted; when the visitor wants sound, show Loading
+// patch L's cutRingingTails), also when no sound is wanted; when the visitor wants sound, show Loading
 // until settleNavigation restarts. Returns whether the visitor wants sound.
 function holdForResponse() {
     audio.stop();
@@ -1115,9 +1130,9 @@ function holdForResponse() {
 // newest tracked request finishes, settleNavigation decides
 function requestIR() {
     const gen = ++navState.irGen;
-    navState.irHeld = false; // [taormina patch M] a held failure belonged to the request this one replaces (round 9b)
-    // [taormina patch M] an older request's failure no longer applies (round 7, VP6-3) and is no longer shown: it named
-    // the seat or source before this change (round 8 repair 1, R8VP-1, R8VC-3)
+    navState.irHeld = false; // [taormina patch M] a held failure belonged to the request this one replaces
+    // [taormina patch M] an older request's failure no longer applies and is no longer shown: it named
+    // the seat or source before this change
     if (navState.irMessage) {
         navState.irMessage = false;
         showNavMessage();
@@ -1160,7 +1175,7 @@ function setTransport(state) {
 }
 
 // [taormina patch M] plain message right below the Start/Stop buttons (no alert() dialog);
-// null hides it; neutral: a status, not an alert (round 8 repair 1)
+// null hides it; neutral: a status, not an alert
 function showAudioMessage(text, neutral) {
     let el = document.getElementById('audio-message');
     if (!text) {
@@ -1182,7 +1197,7 @@ function showAudioMessage(text, neutral) {
         else document.body.appendChild(el);
     }
     el.textContent = text;
-    // [taormina patch M] a neutral status (round 8 repair 1, R8VP-2) is plain text announced politely; every other
+    // [taormina patch M] a neutral status is plain text announced politely; every other
     // message is a highlighted alert
     el.setAttribute('role', neutral ? 'status' : 'alert');
     el.style.color = neutral ? '' : '#ffd0c8';
@@ -1210,11 +1225,22 @@ function setAudioLoading(isLoading) {
 // During a navigation (navigationBusy) it only records the wish and shows Loading: settleNavigation
 // then starts once, with the newest seat's and source's response. When the current seat's panorama is
 // not displayed (it failed) and no seat change runs, it loads that seat again, picture and response.
+// The press has already asked the AudioContext to run inside its gesture (ui.playBtn.onclick, patch L's
+// prime), so a Start that runs later, outside the press, finds a running context (or ends with a
+// message after patch L's bounded wait).
 async function handlePlay() {
     if (transportState.starting) return;
     transportState.want = true;
     if (!navState.panoramaShown && !appState.isNavigating && appState.currentLocIndex >= 0) {
         setTransport('loading');
+        // [taormina patch M] the retry replaces the standing picture failure message at once with the neutral loading status,
+        // until this seat's panorama is shown or fails again (a response failure that still stands is hidden when the retry's
+        // own request starts, requestIR)
+        if (navState.pictureMessage) {
+            navState.pictureMessage = false;
+            navState.seatLoading = `Loading the picture for ${appState.locations[appState.currentLocIndex].Loc_name} ...`;
+            showNavMessage();
+        }
         await performLocationChange(appState.currentLocIndex, true);
         return;
     }
@@ -1241,7 +1267,7 @@ async function startPlayback() {
             if (tries >= 3) {
                 showAudioMessage('The seat or sound source changed while loading. Press Start Audio again.');
                 const superseded = new Error('IR request superseded 4 times');
-                superseded.name = 'IrSupersededError'; // [taormina patch M] its message is shown above (round 9 repair 1)
+                superseded.name = 'IrSupersededError'; // [taormina patch M] its message is shown above
                 throw superseded;
             }
         }
@@ -1268,14 +1294,14 @@ async function startPlayback() {
         if (!current()) return;
         transportState.want = false;
         // [taormina patch M] a failed Start ends every sound: a tail left ringing by an earlier Stop fades in 25 ms (audio.stop
-        // without ring-out, patch L), so the message below that nothing is playing is true (round 10)
+        // without ring-out, patch L), so the message below that nothing is playing is true
         audio.stop();
         if (e && e.name === 'SampleLoadError') {
             showAudioMessage(`The sound (${e.sampleName || 'sample'}) could not be loaded, so nothing is playing. ` +
                 'Press Start Audio to try again, or choose another sound.');
         } else if (e && e.name === 'MicStartError') {
             // [taormina patch M] a microphone that could not be started (patch J: reason and cause; the stream is
-            // released), shown below the buttons, no dialog (round 9)
+            // released), shown below the buttons, no dialog
             const what = e.cause && e.cause.name ? e.cause.name : 'Error';
             showAudioMessage(e.reason === 'no-device'
                 ? 'No microphone was found on this device, so nothing is playing. Connect one and press Start Audio, ' +
@@ -1290,13 +1316,18 @@ async function startPlayback() {
                             'Press Start Audio to try again, or choose Sample or Upload.');
         } else if (e && e.name === 'AudioGraphError') {
             // [taormina patch M] patch L: the sound was loaded but could not be connected to the audio processing; its
-            // source is stopped (round 9 repair 1, R9VC-7)
+            // source is stopped
             const what = e.cause && e.cause.name ? e.cause.name : 'Error';
             showAudioMessage(`The sound (${e.sampleName || 'sample'}) could not be connected to the audio processing (${what}), ` +
                 'so nothing is playing. Press Start Audio to try again, or choose another sound.');
+        } else if (e && e.name === 'AudioSuspendedError') {
+            // [taormina patch M] patch L: the AudioContext did not run within the bounded wait (WebKit: a context that no user
+            // gesture has let run; iOS: an interruption); its own message says so, Start enabled, and the next press asks the
+            // context to run again (prime)
+            showAudioMessage(e.message);
         } else if (!(e && (e.name === 'IrLoadError' || e.name === 'IrSupersededError'))) {
-            // [taormina patch M] any other failure of the Start (for example the audio engine could not resume) is shown
-            // too; a response failure (loadCurrentIR) and a superseded load have their own message (round 9 repair 1, R9VC-7)
+            // [taormina patch M] any other failure of the Start (for example an audio engine that could not start) is shown
+            // too; a response failure (loadCurrentIR) and a superseded load have their own message
             showAudioMessage(`The sound could not be started (${e && e.name ? e.name : 'Error'}), so nothing is playing. ` +
                 'Press Start Audio to try again.');
         }
@@ -1308,8 +1339,8 @@ async function startPlayback() {
 
 // [taormina patch M] Stop also cancels a Start in flight, a held restart and a Start queued during a
 // navigation; it stops every source and releases every microphone track (audio.stop). The Stop button (its
-// click event is the argument) lets the response's reverberation ring out (patch L's ringOut; round 10, as the
-// template since 2026-10-29): the buttons show the stopped state at once while the tail decays. A change of the
+// click event is the argument) lets the response's reverberation ring out (patch L's ringOut, as the template
+// since 2026-10-29): the buttons show the stopped state at once while the tail decays. A change of the
 // source type passes cut = true: a ringing tail fades in 25 ms too.
 function handleStop(cut) {
     transportState.want = false;
@@ -1324,7 +1355,7 @@ function animate() {
     requestAnimationFrame(animate);
 
     // [taormina patch M] also while a reverberation left ringing by Stop sounds (patch L's hasRingingTail): it passes
-    // through the shared rotator, and Stop has already set isPlaying false (round 10 repair 1, R10VC-5)
+    // through the shared rotator, and Stop has already set isPlaying false
     if ((audio.isPlaying || audio.hasRingingTail()) && ui.camera) {
         const obj = ui.camera.object3D;
 

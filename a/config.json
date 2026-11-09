@@ -3,7 +3,7 @@
         "name": "Teatro Antico di Taormina - simulated acoustics",
         "title": "Taormina",
         "subtitle": "A: intact Roman hypothesis (simulated)",
-        "truthLine": "A, intact Roman hypothesis. Simulated sound from an uncalibrated computer model, not a recording; the view is a render of a stylised model, not a photograph.",
+        "truthLine": "A, intact Roman hypothesis. Simulated sound from an uncalibrated computer model, not a recording; the view is the study website's drawn model, seen from the website's seat, not a photograph.",
         "aboutUrl": "../about.html",
         "switch": {
             "label": "Switch to B: ruin",
