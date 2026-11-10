@@ -360,10 +360,6 @@
             color: #f4f1ea;
         }
 
-        .truth-line a {
-            color: var(--accent);
-        }
-
         .location-display {
             min-width: 0;
             max-width: 32vw;
@@ -389,6 +385,48 @@
             line-height: 1.3;
             color: #e8e4dc;
             margin: -6px 0 12px;
+        }
+
+        /* [taormina patch H, round 12] Upload in English: the label is the button and takes keyboard focus; the real input is hidden */
+        .upload-picker {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            white-space: nowrap;
+            border: 0;
+            opacity: 0;
+        }
+
+        .upload-button {
+            flex: 0 0 auto;
+            margin: 0;
+        }
+
+        .upload-button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(224, 192, 151, 0.35);
+        }
+
+        .upload-status {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            color: #e8e4dc;
         }
 
         @media (max-width: 767.98px) {
@@ -499,10 +537,9 @@
                 <a id="btn-about" href="#" target="_blank" class="btn-glass text-decoration-none" title="About"><i
                         class="bi bi-info-circle"></i></a>
             </div>
-            <!-- [taormina patch H] truth line, visible at every width; text from config.project.truthLine -->
-            <div id="truth-line" class="truth-line"><span id="truth-text">Simulated sound from an uncalibrated
-                    computer model, not a recording; the view is a render of a stylised model, not a
-                    photograph.</span> <a id="truth-about" href="../about.html" target="_blank">About</a></div>
+            <!-- [taormina patch H] truth line, visible at every width; text from config.project.truthLine (round 12, owner
+                 2026-11-10: the building's name and this sentence only; the (i) button above opens the About page) -->
+            <div id="truth-line" class="truth-line"><span id="truth-text">Simulated sound from an uncalibrated computer model.</span></div>
         </div>
 
         <!-- Right Sidebar (Settings & Map) -->
@@ -547,9 +584,43 @@
                 <select id="sample-select" class="form-select"></select>
             </div>
 
+            <!-- [taormina patch H, round 12] Upload in English: the real input picks the file; the label is its button and keyboard control -->
             <div id="ctrl-upload" class="mb-3 hide" style="display:none;">
-                <input class="form-control" type="file" id="file-upload" accept=".wav,.mp3,.ogg,.aiff">
+                <div class="upload-picker">
+                    <input class="upload-input" type="file" id="file-upload" accept=".wav,.mp3,.ogg,.aiff"
+                        tabindex="-1" aria-hidden="true">
+                    <label for="file-upload" id="file-upload-button" class="btn btn-outline-light btn-sm upload-button"
+                        role="button" tabindex="0" aria-describedby="file-upload-status"><i
+                            class="bi bi-folder2-open me-1" aria-hidden="true"></i> Choose file</label>
+                    <span id="file-upload-status" class="upload-status" aria-live="polite">No file chosen</span>
+                </div>
             </div>
+            <script>
+                /* [taormina patch H, round 12] the Upload status: the chosen file's name, else "No file chosen".
+                   The label is the keyboard control: Enter or Space opens the picker; the hidden input never keeps
+                   focus, so assistive technology never meets the browser's own (system-language) file-input text. */
+                (function () {
+                    var input = document.getElementById('file-upload');
+                    var status = document.getElementById('file-upload-status');
+                    var button = document.getElementById('file-upload-button');
+                    if (!input || !status || !button) return;
+                    function show() {
+                        var file = input.files && input.files.length > 0 ? input.files[0] : null;
+                        status.textContent = file ? file.name : 'No file chosen';
+                        status.title = file ? file.name : '';
+                    }
+                    input.addEventListener('change', show);
+                    window.addEventListener('pageshow', show);
+                    button.addEventListener('keydown', function (e) {
+                        if (e.altKey || e.ctrlKey || e.metaKey) return;
+                        if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+                        e.preventDefault();
+                        if (!e.repeat) input.click();
+                    });
+                    input.addEventListener('focus', function () { button.focus({ preventScroll: true }); });
+                    show();
+                })();
+            </script>
 
 
             <div class="mb-3">

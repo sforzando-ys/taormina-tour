@@ -3,7 +3,7 @@
         "name": "Teatro Antico di Taormina - simulated acoustics",
         "title": "Taormina",
         "subtitle": "B: present ruin (simulated)",
-        "truthLine": "B, present ruin (stylised). Simulated sound from an uncalibrated computer model, not a recording; the view is the study website's drawn model, seen from the website's seat, not a photograph.",
+        "truthLine": "B, present ruin (stylised). Simulated sound from an uncalibrated computer model.",
         "aboutUrl": "../about.html",
         "switch": {
             "label": "Switch to A: intact",
